@@ -1,0 +1,30 @@
+{
+  "analysis_years": 2012,
+  "cf_file": "placeholder",
+  "directories": {
+    "log_directory": "./",
+    "output_directory": "./"
+  },
+  "execution_control": {
+    "allocation": "rev",
+    "nodes": 20,
+    "option": "eagle",
+    "sites_per_worker": 100,
+    "walltime": 3
+  },
+  "log_level": "INFO",
+  "output_request": [
+    "ppa_price",
+    "lcoe_nom",
+    "lcoe_real",
+    "project_return_aftertax_npv",
+    "flip_actual_irr"
+  ],
+  "project_points": "./project_points/project_points.csv",
+  "sam_files": {
+    "t200_t186": "./tech_configs/wind_ppa_t200_t186.json",
+    "t233_t217": "./tech_configs/wind_ppa_t233_t217.json",
+    "t325_t302": "./tech_configs/wind_ppa_t325_t302.json"
+  },
+  "site_data": "./project_points/site_data.csv"
+}

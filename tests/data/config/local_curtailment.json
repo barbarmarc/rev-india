@@ -1,0 +1,27 @@
+{
+  "analysis_years": 2012,
+  "curtailment": "./curtailment.csv",
+  "directories": {
+    "log_directory": "TESTDATADIR/ri_wind_reV2",
+    "output_directory": "TESTDATADIR/ri_wind_reV2"
+  },
+  "execution_control": {
+    "max_workers": 2,
+    "nodes": 1,
+    "option": "local",
+    "sites_per_worker": 10
+  },
+  "log_level": "DEBUG",
+  "name": "rev",
+  "output_request": [
+    "cf_mean",
+    "cf_profile",
+    "lcoe"
+  ],
+  "project_points": "./project_points_wind_50.csv",
+  "resource_file": "TESTDATADIR/wtk/ri_100_wtk_{}.h5",
+  "sam_files": {
+    "sam_gen_wind_1": "TESTDATADIR/SAM/i_windpower.json"
+  },
+  "technology": "windpower"
+}

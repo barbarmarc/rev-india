@@ -1,0 +1,25 @@
+{
+  "directories": {
+    "collect_directory": "PIPELINE",
+    "log_directory": "./",
+    "output_directory": "./"
+  },
+  "dsets": [
+    "ppa_price",
+    "lcoe_nom",
+    "lcoe_real",
+    "project_return_aftertax_npv",
+    "flip_actual_irr"
+  ],
+  "execution_control": {
+    "allocation": "rev",
+    "feature": "--qos=normal",
+    "memory": 90,
+    "option": "eagle",
+    "walltime": 0.5
+  },
+  "file_prefixes": "PIPELINE",
+  "log_level": "INFO",
+  "parallel": false,
+  "project_points": "./project_points/project_points.csv"
+}
