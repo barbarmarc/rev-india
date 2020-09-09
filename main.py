@@ -26,3 +26,13 @@ gen = Gen.reV_run(tech='windpower', points=pp, sam_files=sam_file,
 
 print(gen.out['cf_profile'])
 
+regions = {'Rhode Island': 'state'}
+
+res_file = os.path.join(TESTDATADIR, 'nsrdb/', 'ri_100_nsrdb_2012.h5')
+sam_file = os.path.join(TESTDATADIR, 'SAM/naris_pv_1axis_inv13.json')
+
+pp = ProjectPoints.regions(regions, res_file, sam_file)
+gen = Gen.reV_run(tech='pvwattsv5', points=pp, sam_files=sam_file,
+                  res_file=res_file, max_workers=1, fout=None,
+                  output_request=('cf_mean', 'cf_profile'))
+print(gen.out['cf_mean'])
