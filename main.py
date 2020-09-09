@@ -1,38 +1,32 @@
+import json
 import os
-import numpy as np
-from reV import TESTDATADIR
-from reV.config.project_points import ProjectPoints
-from reV.generation.generation import Gen
+from rex import Resource
 
-lat_lons = np.array([[ 41.25, -71.66],
-                     [ 41.05, -71.74],
-                     [ 41.45, -71.66],
-                     [ 41.97, -71.78],
-                     [ 41.65, -71.74],
-                     [ 41.53, -71.7 ],
-                     [ 41.25, -71.7 ],
-                     [ 41.05, -71.78],
-                     [ 42.01, -71.74],
-                     [ 41.45, -71.78]])
+sam_config = {
+    "array_type":2,
+    "azimuth":180,
+    "dc_ac_ratio":1.3,
+    "gcr":0.4,
+    "inv_eff":96,
+    "losses":14.07566,
+    "module_type":0,
+    "system_capacity":20000,
+    "variable_operating_cost":0
+}
 
-res_file = os.path.join(TESTDATADIR, 'wtk/ri_100_wtk_2012.h5')
-sam_file = os.path.join(TESTDATADIR,
-                         'SAM/wind_gen_standard_losses_0.json')
+config_path = os.path.expanduser("input/sample_sam_config.json")
+with open(config_path, "w") as file:
+    file.write(json.dumps(sam_config, indent=4))
 
-pp = ProjectPoints.lat_lon_coords(lat_lons, res_file, sam_file)
-gen = Gen.reV_run(tech='windpower', points=pp, sam_files=sam_file,
-                  res_file=res_file, max_workers=1, fout=None,
-                  output_request=('cf_mean', 'cf_profile'))
+NSRDB_SAMPLE = "/nrel/nsrdb/india/nsrdb_india_2000.h5"
 
-print(gen.out['cf_profile'])
+with Resource(NSRDB_SAMPLE, hsds=True) as file:
+    points = file.meta
+points = points[(points["latitude"]>37)&(points["longitude"]>97)]
 
-regions = {'Rhode Island': 'state'}
+points.index.name = "gid"
+points = points.reset_index()
+points["config"] = "default"
 
-res_file = os.path.join(TESTDATADIR, 'nsrdb/', 'ri_100_nsrdb_2012.h5')
-sam_file = os.path.join(TESTDATADIR, 'SAM/naris_pv_1axis_inv13.json')
+points.to_csv("input/project_points.csv", index=False)
 
-pp = ProjectPoints.regions(regions, res_file, sam_file)
-gen = Gen.reV_run(tech='pvwattsv5', points=pp, sam_files=sam_file,
-                  res_file=res_file, max_workers=1, fout=None,
-                  output_request=('cf_mean', 'cf_profile'))
-print(gen.out['cf_mean'])
