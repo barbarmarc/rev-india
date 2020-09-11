@@ -1,0 +1,14 @@
+INFO - 2020-09-10 17:48:22,005 [cli_gen.py:87] : Running reV Generation from config file: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/config_gen.json"
+INFO - 2020-09-10 17:48:22,006 [cli_gen.py:88] : Target output directory: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/"
+INFO - 2020-09-10 17:48:22,006 [cli_gen.py:89] : Target logging directory: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/logs/"
+INFO - 2020-09-10 17:48:22,006 [cli_gen.py:91] : The following project points were specified: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/nsrdb_conus_project_points.csv"
+INFO - 2020-09-10 17:48:22,006 [cli_gen.py:94] : The following SAM configs are available to this run:
+{   'default': 'C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/pv.json'}
+INFO - 2020-09-10 17:48:22,719 [cli_gen.py:707] : Running reV generation on SLURM with node name "full_pipeline_execution_gen_2011_00" for PointsControl for sites 57215 through 1469312 (points range: [0, 26116]).
+INFO - 2020-09-10 17:52:50,364 [cli_gen.py:87] : Running reV Generation from config file: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/config_gen.json"
+INFO - 2020-09-10 17:52:50,364 [cli_gen.py:88] : Target output directory: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/"
+INFO - 2020-09-10 17:52:50,364 [cli_gen.py:89] : Target logging directory: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/logs/"
+INFO - 2020-09-10 17:52:50,364 [cli_gen.py:91] : The following project points were specified: "C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/nsrdb_conus_project_points.csv"
+INFO - 2020-09-10 17:52:50,364 [cli_gen.py:94] : The following SAM configs are available to this run:
+{   'default': 'C:/Users/marcb/Documents/Github/rev-india/examples/full_pipeline_execution/pv.json'}
+INFO - 2020-09-10 17:52:51,003 [cli_gen.py:707] : Running reV generation on SLURM with node name "full_pipeline_execution_gen_2011_00" for PointsControl for sites 57215 through 1469312 (points range: [0, 26116]).
