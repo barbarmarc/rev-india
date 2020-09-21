@@ -12,4 +12,6 @@ sam_files = {
 
 gen = Gen.reV_run(tech="pvwattsv7", points=POINT_SAMPLE, sam_files=sam_files, res_file=NSRDB_SAMPLE, max_workers=1, fout=None, output_request=("cf_mean", "cf_profile"))
 
+gen = Gen.reV_run(tech="pvwattsv7", points=POINT_SAMPLE, sam_files=sam_files, res_file=NSRDB_SAMPLE, max_workers=1, fout=None, output_request=("cf_mean", "cf_profile"))
+
 gen.out
