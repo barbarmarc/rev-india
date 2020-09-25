@@ -1,2 +1,3 @@
 __pycache__/*
-india_points/shp/*
+genx/solar_shp/*
+genx/wind_shp/*

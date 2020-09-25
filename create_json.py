@@ -937,6 +937,6 @@ def create_solar(timezone):
     return file
 
 def write_json(sam_config):
-    config_path = os.path.expanduser('india_points/json/sam_config.json')
+    config_path = os.path.expanduser('genx/json/sam_config.json')
     with open(config_path, "w") as file:
         file.write(json.dumps(sam_config, indent=4))
