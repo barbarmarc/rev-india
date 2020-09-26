@@ -115,33 +115,23 @@ y = wind.to_numpy()
 wind_popt, wind_pcov = fit(gompertz, x, y)
 wind_r2 = pplot(gompertz, wind_popt, wind_pcov, "Wind")
 
-
-"""
 wind_energy_india_2019 = 37.505
+solar_mapping_year = 2014
 solar_energy_india_2019 = 33.731
+wind_mapping_year = 2010
 
 df_india = pd.DataFrame(index=range(2019,2051))
-wind_growth = []
-for i in range(2020, 2051):
-	if i <= 2025:
-		wind_growth.append(func(2025, *wind_popt))
-	else:
-		wind_growth.append(func(i, *wind_popt))
 wind_india = [wind_energy_india_2019]
-for i in range(len(wind_growth)):
-	wind_india.append((1+wind_growth[i])*wind_india[i])
+for i in range(wind_mapping_year, (2050-2019+wind_mapping_year)):
+	wind_india.append(gompertz(i, *wind_popt))
 df_india['wind_gw'] = wind_india
 
-solar_growth = []
-for i in range(2020, 2051):
-	if i <= 2025:
-		solar_growth.append(func(2025, *solar_popt))
-	else:
-		solar_growth.append(func(i, *solar_popt))
 solar_india = [solar_energy_india_2019]
-for i in range(len(solar_growth)):
-	solar_india.append((1+solar_growth[i])*solar_india[i])
+for i in range(solar_mapping_year, (2050-2019+solar_mapping_year)):
+	solar_india.append(gompertz(i, *solar_popt))
 df_india['solar_gw'] = solar_india
 
+df_india.plot()
+plt.show()
+
 df_india.to_csv("India_Renewables_Forecast.csv")
-"""
