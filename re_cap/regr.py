@@ -10,13 +10,7 @@ solar = df['China Solar PV SP (GW)']
 wind = df['China Wind energy SP (GW)']
 
 def guess_lag(x, y):
-    """Given two axes returns a guess of the lag point.
 
-    The lag point is defined as the x point where the difference in y
-    with the next point is higher then the mean differences between
-    the points plus one standard deviation. If such point is not found
-    or x and y have different lengths the function returns zero.
-    """
     if len(x) != len(y):
         return 0
 
@@ -41,13 +35,7 @@ def guess_lag(x, y):
 
 
 def guess_plateau(x, y):
-    """Given two axes returns a guess of the plateau point.
 
-    The plateau point is defined as the x point where the y point
-    is near one standard deviation of the differences between the y points to
-    the maximum y value. If such point is not found or x and y have
-    different lengths the function returns zero.
-    """
     if len(x) != len(y):
         return 0
 
@@ -69,10 +57,7 @@ def guess_plateau(x, y):
     return ymax
 
 def gompertz(x, A, u, d, v, y0):
-    """Gompertz growth model.
 
-    Proposed in Zwietering et al., 1990 (PMID: 16348228)
-    """
     y = (A * np.exp(-np.exp((((u * np.e) / A) * (d - x)) + 1))) + y0
 
     return y
