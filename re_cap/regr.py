@@ -131,7 +131,7 @@ for i in range(solar_mapping_year, (2050-2019+solar_mapping_year)):
 	solar_india.append(gompertz(i, *solar_popt))
 df_india['solar_gw'] = solar_india
 
-df_india.plot()
+df_india.plot(title="Solar and Wind Forecast for India using China's Gompertz growth curve")
 plt.show()
 
 df_india.to_csv("India_Renewables_Forecast.csv")
