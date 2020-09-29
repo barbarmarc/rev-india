@@ -1,0 +1,23 @@
+DEBUG:reV.generation.generation:Sites per worker being set to 100 for Gen/Econ PointsControl.
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)       
+<ipython-input-9-9e537391edfc> in <module>
+      1 gen = Gen.reV_run(tech='windpower', points=pc, sam_files=sam_file,
+      2                                 res_file=WIND, max_workers=1, fout=None,  
+----> 3                                 output_request=("cf_mean", "cf_profile")) 
+
+~\Documents\Github\rev-india\reV\generation\generation.py in reV_run(cls, tech, points, sam_files, res_file, output_request, curtailment, downscale, max_workers, sites_per_worker, pool_size, timeout, points_range, fout, dirout, mem_util_lim, scale_outputs)
+   1533         gen = cls(pc, res_file, output_request=output_request, fout=fout, 
+   1534                   dirout=dirout, mem_util_lim=mem_util_lim,
+-> 1535                   downscale=downscale)
+   1536 
+   1537         kwargs = {'tech': gen.tech,
+
+~\Documents\Github\rev-india\reV\generation\generation.py in __init__(self, points_control, res_file, output_request, fout, dirout, drop_leap, mem_util_lim, downscale)
+    243         self._year = None
+    244         self._sam_obj_default = None
+--> 245         self._sam_module = self.OPTIONS[self.tech]
+    246         self._drop_leap = drop_leap
+    247         self.mem_util_lim = mem_util_lim
+
+KeyError: 'None'
