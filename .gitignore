@@ -2,3 +2,4 @@ __pycache__/*
 genx/solar_shp/*
 genx/wind_shp/*
 genx/results/*
+rev.log

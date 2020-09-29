@@ -856,3 +856,132 @@ Traceback (most recent call last):
   File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\dataset.py", line 862, in __getitem__
     raise IOError("Error retrieving data: {}".format(ioe.errno))
 OSError: Error retrieving data: 429
+INFO - 2020-09-29 09:58:22,472 [project_points.py:845] : Converting latitude longitude coordinates into nearest ProjectPoints
+DEBUG - 2020-09-29 09:58:22,481 [project_points.py:847] : - (lat, lon) pairs:
+[[21.229858 86.40343 ]
+ [21.852257 85.169266]
+ [21.33995  84.42441 ]
+ [23.956581 87.43724 ]
+ [21.852257 84.312675]
+ [23.460419 86.144005]
+ [24.189964 85.22834 ]
+ [20.42926  86.492035]
+ [20.816292 85.635445]
+ [24.270767 85.76002 ]
+ [20.53994  82.415855]
+ [26.51204  83.98776 ]
+ [22.180855 86.05539 ]
+ [24.253159 87.8803  ]
+ [21.87967  84.19453 ]
+ [19.318146 84.247185]
+ [26.326874 85.78956 ]
+ [20.95427  82.59308 ]
+ [22.754059 85.78956 ]
+ [21.229858 85.25146 ]
+ [22.808525 85.435104]
+ [23.740456 88.352905]
+ [22.998993 86.55753 ]
+ [23.270607 85.19881 ]
+ [24.91536  85.76002 ]
+ [21.87967  83.95823 ]
+ [19.346024 82.35678 ]
+ [20.124489 85.930824]
+ [23.24347  84.9625  ]
+ [21.532417 83.56782 ]
+ [23.415596 87.26001 ]
+ [20.42926  84.42441 ]
+ [19.401749 82.35678 ]
+ [22.535973 84.78528 ]
+ [21.769989 84.312675]
+ [23.83921  84.43083 ]
+ [20.2631   86.43296 ]
+ [24.1091   84.755745]
+ [24.199287 87.52585 ]
+ [24.459114 84.726204]
+ [25.369919 84.07638 ]
+ [22.862976 86.144005]
+ [23.622887 85.90771 ]
+ [19.763535 84.77886 ]
+ [24.647179 86.35077 ]
+ [22.535973 84.755745]
+ [20.207664 84.926544]
+ [23.893234 84.28314 ]
+ [25.66314  84.37175 ]
+ [20.843895 84.18811 ]
+ [24.91536  86.20308 ]
+ [23.956581 87.909836]
+ [25.636505 85.64187 ]
+ [24.566612 85.76002 ]
+ [24.055168 85.05112 ]
+ [23.704048 84.22407 ]
+ [26.326874 84.69667 ]
+ [19.067085 82.88846 ]
+ [23.956581 87.348625]
+ [26.300385 85.169266]
+ [24.674019 84.755745]
+ [22.490852 88.884575]
+ [21.257393 85.42869 ]
+ [24.486    85.582794]
+ [20.04126  83.390594]
+ [22.372185 86.38031 ]
+ [24.01056  88.23475 ]
+ [24.216904 85.64187 ]
+ [24.817444 87.26001 ]
+ [23.080536 86.46892 ]
+ [24.968918 83.69239 ]
+ [20.761063 82.35678 ]
+ [24.091476 88.55966 ]
+ [24.1091   85.78956 ]
+ [20.013512 83.47921 ]
+ [21.642273 87.52585 ]
+ [26.141388 85.3465  ]
+ [25.449959 84.48991 ]
+ [24.674019 85.76002 ]
+ [19.819115 82.50447 ]
+ [21.257393 85.48776 ]
+ [23.144272 88.323364]
+ [24.297691 83.98776 ]
+ [25.636505 84.460365]
+ [25.325768 88.73689 ]
+ [24.270767 85.52372 ]
+ [25.165466 87.73261 ]
+ [19.206612 83.420135]
+ [22.463562 88.64828 ]
+ [23.361374 87.02371 ]
+ [25.609879 85.730484]
+ [23.947235 84.2536  ]
+ [20.70581  82.38632 ]
+ [22.272346 88.1166  ]
+ [20.53994  82.563545]
+ [25.325768 87.02371 ]
+ [21.824837 83.92869 ]
+ [23.785164 85.11019 ]
+ [24.575912 87.52585 ]
+ [27.197174 84.046844]]
+DEBUG - 2020-09-29 09:58:25,873 [project_points.py:866] : - Resource gids:
+[673593, 5129, 677282, 710624, 5100, 48881, 68857, 646867, 659667, 71098, 650383, 133282, 14051, 713521, 5837, 610952, 128156, 664170, 29603, 673554, 31073, 708559, 36298, 43662, 88882, 5829, 611765, 636855, 42913, 683871, 705378, 646797, 613522, 23641, 2877, 59197, 641403, 66618, 712985, 76250, 101422, 32579, 53319, 625134, 81492, 23640, 639537, 60674, 109583, 660538, 88897, 710640, 108885, 79249, 65146, 55485, 128119, 603058, 710621, 127394, 82179, 696528, 674497, 77020, 634060, 19249, 711175, 69612, 719002, 38518, 90294, 657717, 711972, 66653, 633162, 687813, 122954, 103659, 82213, 626844, 674499, 702794, 71779, 108845, 724030, 71090, 722424, 607426, 696258, 704846, 108147, 62155, 655881, 694406, 650388, 723972, 4346, 57738, 716653, 152550]
+WARNING - 2020-09-29 09:58:25,882 [project_points.py:326] : WARNING: points are not in sequential order and will be sorted! The original order is being preserved under column "points_order"
+DEBUG - 2020-09-29 09:58:25,890 [generation.py:982] : Sites per worker being set to 100 for Gen/Econ PointsControl.
+INFO - 2020-09-29 09:58:29,573 [generation.py:629] : Output results from a single site are calculated to use 0.0 KB of memory.
+INFO - 2020-09-29 09:58:29,587 [generation.py:598] : Generation limited to storing 32364 sites in memory (17.0 GB total hardware, 6.8 GB available with 40.0% utilization).
+INFO - 2020-09-29 09:58:29,589 [generation.py:537] : Initializing in-memory outputs for 100 sites with gids 2877 through 724030 inclusive (site list index 0 through 99)
+INFO - 2020-09-29 09:58:29,687 [generation.py:1543] : Running reV generation for: PointsControl for sites 2877 through 724030
+DEBUG - 2020-09-29 09:58:29,688 [generation.py:1545] : The following project points were specified: "PointsControl for sites 2877 through 724030"
+DEBUG - 2020-09-29 09:58:29,689 [generation.py:1547] : The following SAM configs are available to this run:
+'genx/json/sam_config.json'
+DEBUG - 2020-09-29 09:58:29,735 [generation.py:1549] : The SAM output variables have been requested:
+cf_profile
+DEBUG - 2020-09-29 09:58:29,736 [generation.py:1554] : Running serial generation for: PointsControl for sites 2877 through 724030
+DEBUG - 2020-09-29 09:58:29,737 [project_points.py:50] : PointsControl iterator initializing with sites 2877 through 724030
+DEBUG - 2020-09-29 09:58:29,809 [project_points.py:68] : PointsControl stopped iteration at attempted index of 100. Length of iterator is: 100
+DEBUG - 2020-09-29 09:58:29,811 [project_points.py:90] : PointsControl passing site project points with indices 0 to 1 on iteration #0 
+DEBUG - 2020-09-29 09:58:36,990 [project_points.py:90] : PointsControl passing site project points with indices 1 to 2 on iteration #1 
+DEBUG - 2020-09-29 09:58:43,542 [project_points.py:90] : PointsControl passing site project points with indices 2 to 3 on iteration #2 
+DEBUG - 2020-09-29 09:58:49,553 [project_points.py:90] : PointsControl passing site project points with indices 3 to 4 on iteration #3 
+DEBUG - 2020-09-29 09:58:54,620 [project_points.py:90] : PointsControl passing site project points with indices 4 to 5 on iteration #4 
+DEBUG - 2020-09-29 09:59:00,607 [project_points.py:90] : PointsControl passing site project points with indices 5 to 6 on iteration #5 
+DEBUG - 2020-09-29 09:59:05,376 [project_points.py:90] : PointsControl passing site project points with indices 6 to 7 on iteration #6 
+DEBUG - 2020-09-29 09:59:11,410 [project_points.py:90] : PointsControl passing site project points with indices 7 to 8 on iteration #7 
+DEBUG - 2020-09-29 09:59:17,525 [project_points.py:90] : PointsControl passing site project points with indices 8 to 9 on iteration #8 
+DEBUG - 2020-09-29 09:59:23,532 [project_points.py:90] : PointsControl passing site project points with indices 9 to 10 on iteration #9 
+DEBUG - 2020-09-29 09:59:31,718 [project_points.py:90] : PointsControl passing site project points with indices 10 to 11 on iteration #10 
