@@ -1038,3 +1038,248 @@ DEBUG - 2020-09-29 10:05:44,618 [project_points.py:90] : PointsControl passing s
 DEBUG - 2020-09-29 10:05:51,734 [project_points.py:90] : PointsControl passing site project points with indices 61 to 62 on iteration #61 
 DEBUG - 2020-09-29 10:05:58,780 [project_points.py:90] : PointsControl passing site project points with indices 62 to 63 on iteration #62 
 DEBUG - 2020-09-29 10:06:05,734 [project_points.py:90] : PointsControl passing site project points with indices 63 to 64 on iteration #63 
+DEBUG - 2020-09-29 10:06:13,783 [project_points.py:90] : PointsControl passing site project points with indices 64 to 65 on iteration #64 
+DEBUG - 2020-09-29 10:06:22,450 [project_points.py:90] : PointsControl passing site project points with indices 65 to 66 on iteration #65 
+DEBUG - 2020-09-29 10:06:31,675 [project_points.py:90] : PointsControl passing site project points with indices 66 to 67 on iteration #66 
+DEBUG - 2020-09-29 10:06:38,689 [project_points.py:90] : PointsControl passing site project points with indices 67 to 68 on iteration #67 
+DEBUG - 2020-09-29 10:06:45,611 [project_points.py:90] : PointsControl passing site project points with indices 68 to 69 on iteration #68 
+DEBUG - 2020-09-29 10:06:50,194 [project_points.py:90] : PointsControl passing site project points with indices 69 to 70 on iteration #69 
+DEBUG - 2020-09-29 10:06:59,802 [project_points.py:90] : PointsControl passing site project points with indices 70 to 71 on iteration #70 
+DEBUG - 2020-09-29 10:07:08,718 [project_points.py:90] : PointsControl passing site project points with indices 71 to 72 on iteration #71 
+DEBUG - 2020-09-29 10:07:17,303 [project_points.py:90] : PointsControl passing site project points with indices 72 to 73 on iteration #72 
+DEBUG - 2020-09-29 10:07:24,759 [project_points.py:90] : PointsControl passing site project points with indices 73 to 74 on iteration #73 
+DEBUG - 2020-09-29 10:07:34,577 [project_points.py:90] : PointsControl passing site project points with indices 74 to 75 on iteration #74 
+DEBUG - 2020-09-29 10:07:42,453 [project_points.py:90] : PointsControl passing site project points with indices 75 to 76 on iteration #75 
+DEBUG - 2020-09-29 10:07:48,192 [project_points.py:90] : PointsControl passing site project points with indices 76 to 77 on iteration #76 
+DEBUG - 2020-09-29 10:07:53,611 [project_points.py:90] : PointsControl passing site project points with indices 77 to 78 on iteration #77 
+DEBUG - 2020-09-29 10:07:57,248 [project_points.py:90] : PointsControl passing site project points with indices 78 to 79 on iteration #78 
+DEBUG - 2020-09-29 10:08:02,505 [project_points.py:90] : PointsControl passing site project points with indices 79 to 80 on iteration #79 
+DEBUG - 2020-09-29 10:08:07,418 [project_points.py:90] : PointsControl passing site project points with indices 80 to 81 on iteration #80 
+DEBUG - 2020-09-29 10:08:12,311 [project_points.py:90] : PointsControl passing site project points with indices 81 to 82 on iteration #81 
+DEBUG - 2020-09-29 10:08:17,443 [project_points.py:90] : PointsControl passing site project points with indices 82 to 83 on iteration #82 
+DEBUG - 2020-09-29 10:08:23,909 [project_points.py:90] : PointsControl passing site project points with indices 83 to 84 on iteration #83 
+DEBUG - 2020-09-29 10:08:30,185 [project_points.py:90] : PointsControl passing site project points with indices 84 to 85 on iteration #84 
+DEBUG - 2020-09-29 10:08:37,324 [project_points.py:90] : PointsControl passing site project points with indices 85 to 86 on iteration #85 
+DEBUG - 2020-09-29 10:08:44,543 [project_points.py:90] : PointsControl passing site project points with indices 86 to 87 on iteration #86 
+DEBUG - 2020-09-29 10:08:51,682 [project_points.py:90] : PointsControl passing site project points with indices 87 to 88 on iteration #87 
+DEBUG - 2020-09-29 10:08:58,264 [project_points.py:90] : PointsControl passing site project points with indices 88 to 89 on iteration #88 
+DEBUG - 2020-09-29 10:09:05,840 [project_points.py:90] : PointsControl passing site project points with indices 89 to 90 on iteration #89 
+DEBUG - 2020-09-29 10:09:10,405 [project_points.py:90] : PointsControl passing site project points with indices 90 to 91 on iteration #90 
+DEBUG - 2020-09-29 10:09:13,726 [project_points.py:90] : PointsControl passing site project points with indices 91 to 92 on iteration #91 
+DEBUG - 2020-09-29 10:09:19,503 [project_points.py:90] : PointsControl passing site project points with indices 92 to 93 on iteration #92 
+DEBUG - 2020-09-29 10:09:24,692 [project_points.py:90] : PointsControl passing site project points with indices 93 to 94 on iteration #93 
+DEBUG - 2020-09-29 10:09:29,733 [project_points.py:90] : PointsControl passing site project points with indices 94 to 95 on iteration #94 
+DEBUG - 2020-09-29 10:09:34,762 [project_points.py:90] : PointsControl passing site project points with indices 95 to 96 on iteration #95 
+DEBUG - 2020-09-29 10:09:42,015 [project_points.py:90] : PointsControl passing site project points with indices 96 to 97 on iteration #96 
+DEBUG - 2020-09-29 10:09:49,130 [project_points.py:90] : PointsControl passing site project points with indices 97 to 98 on iteration #97 
+DEBUG - 2020-09-29 10:09:54,666 [project_points.py:90] : PointsControl passing site project points with indices 98 to 99 on iteration #98 
+DEBUG - 2020-09-29 10:10:01,849 [project_points.py:90] : PointsControl passing site project points with indices 99 to 100 on iteration #99 
+INFO - 2020-09-29 10:10:12,683 [project_points.py:845] : Converting latitude longitude coordinates into nearest ProjectPoints
+DEBUG - 2020-09-29 10:10:12,687 [project_points.py:847] : - (lat, lon) pairs:
+[[21.229858 86.40343 ]
+ [21.852257 85.169266]
+ [21.33995  84.42441 ]
+ [23.956581 87.43724 ]
+ [21.852257 84.312675]
+ [23.460419 86.144005]
+ [24.189964 85.22834 ]
+ [20.42926  86.492035]
+ [20.816292 85.635445]
+ [24.270767 85.76002 ]
+ [20.53994  82.415855]
+ [26.51204  83.98776 ]
+ [22.180855 86.05539 ]
+ [24.253159 87.8803  ]
+ [21.87967  84.19453 ]
+ [19.318146 84.247185]
+ [26.326874 85.78956 ]
+ [20.95427  82.59308 ]
+ [22.754059 85.78956 ]
+ [21.229858 85.25146 ]
+ [22.808525 85.435104]
+ [23.740456 88.352905]
+ [22.998993 86.55753 ]
+ [23.270607 85.19881 ]
+ [24.91536  85.76002 ]
+ [21.87967  83.95823 ]
+ [19.346024 82.35678 ]
+ [20.124489 85.930824]
+ [23.24347  84.9625  ]
+ [21.532417 83.56782 ]
+ [23.415596 87.26001 ]
+ [20.42926  84.42441 ]
+ [19.401749 82.35678 ]
+ [22.535973 84.78528 ]
+ [21.769989 84.312675]
+ [23.83921  84.43083 ]
+ [20.2631   86.43296 ]
+ [24.1091   84.755745]
+ [24.199287 87.52585 ]
+ [24.459114 84.726204]
+ [25.369919 84.07638 ]
+ [22.862976 86.144005]
+ [23.622887 85.90771 ]
+ [19.763535 84.77886 ]
+ [24.647179 86.35077 ]
+ [22.535973 84.755745]
+ [20.207664 84.926544]
+ [23.893234 84.28314 ]
+ [25.66314  84.37175 ]
+ [20.843895 84.18811 ]
+ [24.91536  86.20308 ]
+ [23.956581 87.909836]
+ [25.636505 85.64187 ]
+ [24.566612 85.76002 ]
+ [24.055168 85.05112 ]
+ [23.704048 84.22407 ]
+ [26.326874 84.69667 ]
+ [19.067085 82.88846 ]
+ [23.956581 87.348625]
+ [26.300385 85.169266]
+ [24.674019 84.755745]
+ [22.490852 88.884575]
+ [21.257393 85.42869 ]
+ [24.486    85.582794]
+ [20.04126  83.390594]
+ [22.372185 86.38031 ]
+ [24.01056  88.23475 ]
+ [24.216904 85.64187 ]
+ [24.817444 87.26001 ]
+ [23.080536 86.46892 ]
+ [24.968918 83.69239 ]
+ [20.761063 82.35678 ]
+ [24.091476 88.55966 ]
+ [24.1091   85.78956 ]
+ [20.013512 83.47921 ]
+ [21.642273 87.52585 ]
+ [26.141388 85.3465  ]
+ [25.449959 84.48991 ]
+ [24.674019 85.76002 ]
+ [19.819115 82.50447 ]
+ [21.257393 85.48776 ]
+ [23.144272 88.323364]
+ [24.297691 83.98776 ]
+ [25.636505 84.460365]
+ [25.325768 88.73689 ]
+ [24.270767 85.52372 ]
+ [25.165466 87.73261 ]
+ [19.206612 83.420135]
+ [22.463562 88.64828 ]
+ [23.361374 87.02371 ]
+ [25.609879 85.730484]
+ [23.947235 84.2536  ]
+ [20.70581  82.38632 ]
+ [22.272346 88.1166  ]
+ [20.53994  82.563545]
+ [25.325768 87.02371 ]
+ [21.824837 83.92869 ]
+ [23.785164 85.11019 ]
+ [24.575912 87.52585 ]
+ [27.197174 84.046844]]
+DEBUG - 2020-09-29 10:10:13,091 [project_points.py:866] : - Resource gids:
+[673593, 5129, 677282, 710624, 5100, 48881, 68857, 646867, 659667, 71098, 650383, 133282, 14051, 713521, 5837, 610952, 128156, 664170, 29603, 673554, 31073, 708559, 36298, 43662, 88882, 5829, 611765, 636855, 42913, 683871, 705378, 646797, 613522, 23641, 2877, 59197, 641403, 66618, 712985, 76250, 101422, 32579, 53319, 625134, 81492, 23640, 639537, 60674, 109583, 660538, 88897, 710640, 108885, 79249, 65146, 55485, 128119, 603058, 710621, 127394, 82179, 696528, 674497, 77020, 634060, 19249, 711175, 69612, 719002, 38518, 90294, 657717, 711972, 66653, 633162, 687813, 122954, 103659, 82213, 626844, 674499, 702794, 71779, 108845, 724030, 71090, 722424, 607426, 696258, 704846, 108147, 62155, 655881, 694406, 650388, 723972, 4346, 57738, 716653, 152550]
+WARNING - 2020-09-29 10:10:13,107 [project_points.py:326] : WARNING: points are not in sequential order and will be sorted! The original order is being preserved under column "points_order"
+DEBUG - 2020-09-29 10:10:13,127 [generation.py:982] : Sites per worker being set to 100 for Gen/Econ PointsControl.
+INFO - 2020-09-29 10:10:15,366 [generation.py:629] : Output results from a single site are calculated to use 0.0 KB of memory.
+INFO - 2020-09-29 10:10:15,380 [generation.py:598] : Generation limited to storing 32364 sites in memory (17.0 GB total hardware, 6.8 GB available with 40.0% utilization).
+INFO - 2020-09-29 10:10:15,385 [generation.py:537] : Initializing in-memory outputs for 100 sites with gids 2877 through 724030 inclusive (site list index 0 through 99)
+INFO - 2020-09-29 10:10:15,404 [generation.py:1543] : Running reV generation for: PointsControl for sites 2877 through 724030
+DEBUG - 2020-09-29 10:10:15,421 [generation.py:1545] : The following project points were specified: "PointsControl for sites 2877 through 724030"
+DEBUG - 2020-09-29 10:10:15,422 [generation.py:1547] : The following SAM configs are available to this run:
+'genx/json/sam_config.json'
+DEBUG - 2020-09-29 10:10:15,445 [generation.py:1549] : The SAM output variables have been requested:
+cf_profile
+DEBUG - 2020-09-29 10:10:15,447 [generation.py:1554] : Running serial generation for: PointsControl for sites 2877 through 724030
+DEBUG - 2020-09-29 10:10:15,448 [project_points.py:50] : PointsControl iterator initializing with sites 2877 through 724030
+DEBUG - 2020-09-29 10:10:15,501 [project_points.py:68] : PointsControl stopped iteration at attempted index of 100. Length of iterator is: 100
+DEBUG - 2020-09-29 10:10:15,502 [project_points.py:90] : PointsControl passing site project points with indices 0 to 1 on iteration #0 
+DEBUG - 2020-09-29 10:10:21,059 [project_points.py:90] : PointsControl passing site project points with indices 1 to 2 on iteration #1 
+DEBUG - 2020-09-29 10:10:26,152 [project_points.py:90] : PointsControl passing site project points with indices 2 to 3 on iteration #2 
+DEBUG - 2020-09-29 10:10:30,996 [project_points.py:90] : PointsControl passing site project points with indices 3 to 4 on iteration #3 
+DEBUG - 2020-09-29 10:10:34,557 [project_points.py:90] : PointsControl passing site project points with indices 4 to 5 on iteration #4 
+DEBUG - 2020-09-29 10:10:39,550 [project_points.py:90] : PointsControl passing site project points with indices 5 to 6 on iteration #5 
+DEBUG - 2020-09-29 10:10:44,191 [project_points.py:90] : PointsControl passing site project points with indices 6 to 7 on iteration #6 
+DEBUG - 2020-09-29 10:10:50,226 [project_points.py:90] : PointsControl passing site project points with indices 7 to 8 on iteration #7 
+DEBUG - 2020-09-29 10:10:55,759 [project_points.py:90] : PointsControl passing site project points with indices 8 to 9 on iteration #8 
+DEBUG - 2020-09-29 10:11:00,304 [project_points.py:90] : PointsControl passing site project points with indices 9 to 10 on iteration #9 
+ERROR - 2020-09-29 10:11:02,485 [generation.py:1285] : Worker failed for PC: PointsControl for sites 23641 through 23641
+Traceback (most recent call last):
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\dataset.py", line 853, in __getitem__
+    rsp = self.GET(req, params=params, format="binary")
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\base.py", line 892, in GET
+    raise IOError(rsp.status_code, rsp.reason)
+OSError: [Errno 429] Too Many Requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1282, in run
+    downscale=downscale)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\generation.py", line 311, in reV_run
+    output_request=output_request)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 531, in get_sam_res
+    return SamResourceRetriever.get(*args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 243, in get
+    res = res_handler.preload_SAM(res_file, *args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\renewable_resource.py", line 1000, in preload_SAM
+    means=means)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\renewable_resource.py", line 1000, in preload_SAM
+    means=means)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\renewable_resource.py", line 913, in _preload_SAM
+    SAM_res['meta'] = self['meta', sites]
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 462, in __getitem__
+    out = self._get_meta(ds, ds_slice)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 862, in _get_meta
+    meta = ResourceDataset.extract(meta, sites, unscale=False)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 224, in extract
+    return dset[ds_slice]
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 44, in __getitem__
+    out = self._extract_ds_slice(ds_slice)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 171, in _extract_ds_slice
+    out = self._ds[slices]
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\dataset.py", line 862, in __getitem__
+    raise IOError("Error retrieving data: {}".format(ioe.errno))
+OSError: Error retrieving data: 429
+ERROR - 2020-09-29 10:11:02,722 [generation.py:1565] : reV generation failed!
+Traceback (most recent call last):
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\dataset.py", line 853, in __getitem__
+    rsp = self.GET(req, params=params, format="binary")
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\base.py", line 892, in GET
+    raise IOError(rsp.status_code, rsp.reason)
+OSError: [Errno 429] Too Many Requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1556, in reV_run
+    gen.out = gen.run(pc_sub, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1286, in run
+    raise e
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1282, in run
+    downscale=downscale)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\generation.py", line 311, in reV_run
+    output_request=output_request)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 531, in get_sam_res
+    return SamResourceRetriever.get(*args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 243, in get
+    res = res_handler.preload_SAM(res_file, *args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\renewable_resource.py", line 1000, in preload_SAM
+    means=means)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\renewable_resource.py", line 1000, in preload_SAM
+    means=means)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\renewable_resource.py", line 913, in _preload_SAM
+    SAM_res['meta'] = self['meta', sites]
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 462, in __getitem__
+    out = self._get_meta(ds, ds_slice)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 862, in _get_meta
+    meta = ResourceDataset.extract(meta, sites, unscale=False)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 224, in extract
+    return dset[ds_slice]
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 44, in __getitem__
+    out = self._extract_ds_slice(ds_slice)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\resource.py", line 171, in _extract_ds_slice
+    out = self._ds[slices]
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\dataset.py", line 862, in __getitem__
+    raise IOError("Error retrieving data: {}".format(ioe.errno))
+OSError: Error retrieving data: 429
+DEBUG - 2020-09-29 10:54:06,289 [generation.py:982] : Sites per worker being set to 100 for Gen/Econ PointsControl.

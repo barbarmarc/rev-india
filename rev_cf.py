@@ -10,8 +10,11 @@ init_logger("reV.config", log_level="DEBUG", log_file="./rev.log")
 from create_json import *
 
 #%% Path
-SOLAR = "/nrel/nsrdb/india/nsrdb_india_2000.h5"
-WIND = "/nrel/wtk/india/wtk_india_2014.h5"
+SOLAR_HSDS = "/nrel/nsrdb/india/nsrdb_india_2000.h5"
+WIND_HSDS = "/nrel/wtk/india/wtk_india_2014.h5"
+
+SOLAR_AWS = "https://registry.opendata.aws/nrel-pds-nsrdb/"
+WIND_AWS = "https://registry.opendata.aws/nrel-pds-wtk/"
 
 # regions = ['NR', 'WR', 'SR', 'ER', 'NER']
 windpath = 'genx/points/sample/wind/'
@@ -68,7 +71,7 @@ for p in point_files:
                 renewable = 'windpower'
             elif t == 'w1':
                 res_file = WIND
-                sam_file = create_w1(0)
+                sam_config = create_w1(0)
                 write_json(sam_config)
                 sam_file = os.path.expanduser(jsonpath)
                 renewable = 'windpower'
@@ -95,7 +98,7 @@ for p in point_files:
             pc = PointsControl(pp, sites_per_split=1)
             gen = Gen.reV_run(tech=renewable, points=pc, sam_files=sam_file,
                                 res_file=res_file, max_workers=1, fout=None,
-                                output_request=("cf_profile"))
+                                output_request=("cf_mean","cf_profile"))
 
             profile_df = pd.DataFrame(gen.out['cf_profile'])
             """
