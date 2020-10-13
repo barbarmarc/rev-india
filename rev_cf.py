@@ -1,7 +1,7 @@
 #%% packages
 import os
 import pandas as pd
-import geopandas as gpd
+#import geopandas as gpd
 from reV.config.project_points import ProjectPoints, PointsControl
 from reV.generation.generation import Gen
 from rex import init_logger
@@ -10,11 +10,8 @@ init_logger("reV.config", log_level="DEBUG", log_file="./rev.log")
 from create_json import *
 
 #%% Path
-SOLAR_HSDS = "/nrel/nsrdb/india/nsrdb_india_2000.h5"
-WIND_HSDS = "/nrel/wtk/india/wtk_india_2014.h5"
-
-SOLAR_AWS = "https://registry.opendata.aws/nrel-pds-nsrdb/"
-WIND_AWS = "https://registry.opendata.aws/nrel-pds-wtk/"
+SOLAR = "K:/Data/NREL/NSRDB/nsrdb_india_2014.h5"
+WIND = "K:/Data/NREL/WTK/wtk_india_2014.h5"
 
 # regions = ['NR', 'WR', 'SR', 'ER', 'NER']
 windpath = 'genx/points/sample/wind/'
@@ -46,6 +43,7 @@ for p in point_files:
 
 
 #%% Wind
+
 point_files = os.listdir(windpath)
 for p in point_files:
     for t in tech:
@@ -99,21 +97,34 @@ for p in point_files:
             gen = Gen.reV_run(tech=renewable, points=pc, sam_files=sam_file,
                                 res_file=res_file, max_workers=1, fout=None,
                                 output_request=("cf_mean","cf_profile"))
-
+			
             profile_df = pd.DataFrame(gen.out['cf_profile'])
-            """
+        
             df_mean = []
             for index, row in profile_df.iterrows():
                 df_mean.append(row.mean())
             df_mean = pd.DataFrame(df_mean)
-            """
-            profile_df.columns = points_df.gid.tolist()
-            profile_df.to_csv(resultpath+p[:-10]+t+'_cf.csv')
+            df_mean.columns = [p[:-11]]
+            df_mean.to_csv(resultpath+p[:-10]+t+'_cf.csv', index=False)
+		
+	        #profile_df.columns = points_df.gid.tolist()
+            #profile_df.to_csv(resultpath+p[:-10]+t+'_cf.csv')
 
             file = open('log.txt','a')
             file.write(resultpath+p[:-10]+t+"\n")
-            file.close()      
+            file.close()     
 
+#%% Clean Wind
+result_files = os.listdir('genx/results/')
+for rf in result_files:
+    rdf = pd.read_csv('genx/results/'+rf)
+    if len(rdf) > 8760:
+        mean_wind = []
+        for i in range(8760):
+            lst = rdf.loc[i*12:i*12+11]
+            mean_wind.append(lst.mean()[0])
+        df = pd.DataFrame(mean_wind, columns=rdf.columns.tolist())
+        df.to_csv('genx/results/'+rf)
 
 #%% Solar
 point_files = os.listdir(solarpath)
@@ -125,7 +136,7 @@ for p in point_files:
     else:
         log = []
 
-    if resultpath+p[:-10]+t not in log:
+    if resultpath+p[:-10]+'s' not in log:
         points_df = pd.read_csv(solarpath+p)
 
         lat_lon = []
@@ -145,15 +156,17 @@ for p in point_files:
                             output_request=("cf_profile"))
 
         profile_df = pd.DataFrame(gen.out['cf_profile'])
-        """
+        
         df_mean = []
         for index, row in profile_df.iterrows():
             df_mean.append(row.mean())
         df_mean = pd.DataFrame(df_mean)
-        """
-        profile_df.columns = points_df.gid.tolist()
-        profile_df.to_csv(resultpath+p[:-10]+t+'_cf.csv')
+        df_mean.columns = [p[:-11]]
+        df_mean.to_csv(resultpath+p[:-10]+'s_cf.csv', index=False)
+		
+	    #profile_df.columns = points_df.gid.tolist()
+        #profile_df.to_csv(resultpath+p[:-10]+t+'_cf.csv')
 
         file = open('log.txt','a')
-        file.write(resultpath+p[:-10]+t+"\n")
+        file.write(resultpath+p[:-10]+'s'+"\n")
         file.close()      

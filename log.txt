@@ -1,13 +1,30 @@
-INFO - 2020-10-07 10:26:22,309 [generation.py:629] : Output results from a single site are calculated to use 0.0 KB of memory.
-INFO - 2020-10-07 10:26:22,311 [generation.py:598] : Generation limited to storing 326704 sites in memory (171.7 GB total hardware, 68.7 GB available with 40.0% utilization).
-INFO - 2020-10-07 10:26:22,323 [generation.py:537] : Initializing in-memory outputs for 100 sites with gids 4431 through 717429 inclusive (site list index 0 through 99)
-It appears old SAM v1 keys are being used. Updated key "wind_farm_losses_percent" to "turb_generic_loss".
-C:\Users\mbarbar\Documents\Python\rev-india\reV\SAM\version_checker.py:105: PySAMVersionWarning: It appears old SAM v1 keys are being used. Updated key "wind_farm_losses_percent" to "turb_generic_loss".
-  warn(m, PySAMVersionWarning)
-INFO - 2020-10-07 10:26:22,346 [generation.py:1543] : Running reV generation for: PointsControl for sites 4431 through 717429
-C:\Users\mbarbar\Documents\Python\rev-india\rex\sam_resource.py:478: SAMInputWarning: Resource dataset "pressure" out of viable SAM range (0.5, 1.099) for sites [4431]. Data min/max: 892.933349609375/919.4332885742188. Patching data...
-  SAMInputWarning)
-C:\Users\mbarbar\Documents\Python\rev-india\rex\sam_resource.py:478: SAMInputWarning: Resource dataset "temperature" out of viable SAM range (-200, 100) for sites [4431]. Data min/max: 105126.8515625/363026.84375. Patching data...
-  SAMInputWarning)
-C:\Users\mbarbar\Documents\Python\rev-india\rex\sam_resource.py:478: SAMInputWarning: Resource dataset "windspeed" out of viable SAM range (0, 120) for sites [4431]. Data min/max: 200.0/204300.0. Patching data...
-  SAMInputWarning)
+genx/results/ER_w0
+genx/results/ER_w1
+genx/results/ER_w2
+genx/results/ER_g126_84
+genx/results/ER_g126_102
+genx/results/NER_w0
+genx/results/NER_w1
+genx/results/NER_w2
+genx/results/NER_g126_84
+genx/results/NER_g126_102
+genx/results/NR_w0
+genx/results/NR_w1
+genx/results/NR_w2
+genx/results/NR_g126_84
+genx/results/NR_g126_102
+genx/results/SR_w0
+genx/results/SR_w1
+genx/results/SR_w2
+genx/results/SR_g126_84
+genx/results/SR_g126_102
+genx/results/WR_w0
+genx/results/WR_w1
+genx/results/WR_w2
+genx/results/WR_g126_84
+genx/results/WR_g126_102
+genx/results/ER_5.5_s
+genx/results/NER_5.5_s
+genx/results/NR_5.5_s
+genx/results/SR_5.5_s
+genx/results/WR_5.5_s
