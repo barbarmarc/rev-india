@@ -84,7 +84,7 @@ def pplot(function, popt, pcov, title):
 	plt.plot(x, y, 'ko', label="Original Data")
 	plt.plot(x, function(x, *popt), 'r-', label="Fitted Curve")
 	plt.plot(list(range(2001, 2101)), function(list(range(2001,2101)), *popt), 'y--', label="Full Curve")
-	plt.title(title+ " Trend in China under IEA WEO 2018 Sustainable Policy Scenario Projections")
+	plt.title(title+ " Trend in China under IEA WEO 2019 Sustainable Policy Scenario Projections")
 	plt.legend()
 	plt.show()
 

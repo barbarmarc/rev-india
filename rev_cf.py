@@ -23,15 +23,16 @@ solarpath = 'genx/points/sample/solar/'
 tech = ['w0', 'w1', 'w2', 'g126_84', 'g126_102']
 
 #%% Sampling
+
 point_files = os.listdir('genx/points/wind/')
 for p in point_files:
     full_gid = pd.read_csv('genx/points/wind/'+p)
-    sample_gid = full_gid.sample(100)
+    sample_gid = full_gid.sample(int(len(full_gid)/10))
     sample_gid.to_csv(windpath+p)
     #gdf = gpd.GeoDataFrame(sample_gid, geometry=gpd.points_from_xy(sample_gid.longitude, sample_gid.latitude))
     #gdf.to_file('genx/wind_shp/sample/'+p[:-4]+'_sample.shp')
     
-
+"""
 point_files = os.listdir('genx/points/solar/')
 for p in point_files:
     full_gid = pd.read_csv('genx/points/solar/'+p)
@@ -39,7 +40,7 @@ for p in point_files:
     sample_gid.to_csv(solarpath+p)
     #gdf = gpd.GeoDataFrame(sample_gid, geometry=gpd.points_from_xy(sample_gid.longitude, sample_gid.latitude))
     #gdf.to_file('genx/solar_shp/sample/'+p[:-4]+'_sample.shp')    
-    
+""" 
 
 
 #%% Wind
@@ -127,6 +128,7 @@ for rf in result_files:
         df.to_csv('genx/results/'+rf)
 
 #%% Solar
+"""
 point_files = os.listdir(solarpath)
 for p in point_files:
 
@@ -170,3 +172,4 @@ for p in point_files:
         file = open('log.txt','a')
         file.write(resultpath+p[:-10]+'s'+"\n")
         file.close()      
+"""

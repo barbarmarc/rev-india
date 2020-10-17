@@ -17,7 +17,8 @@ points.to_csv("points_projects.csv")
 #%% Step 2
 # select by location in qgis
 
-#%% Step 3
+#%% sample points
+from rasterstats import zonal_stats, point_query
 import geopandas as gpd
 path = 'genx/wind_shp/'
 
@@ -25,8 +26,23 @@ regions = ['NR', 'SR', 'WR', 'ER', 'NER']
 
 for r in regions:
     gdf = gpd.read_file(path+r+'_points.shp')
+    gdf['wind'] = point_query(gdf.geometry.tolist(), 'genx/IND_wind-speed_100m.tif')
 
-    df = gdf[['gid', 'latitude', 'longitude', 'elevation', 'offshore', 'wrf_region', 'config']]
+    gdf = gpd.GeoDataFrame(gdf, crs='epsg:4326', geometry = gdf.geometry)
+    gdf.to_file(path+r+'_wind_points.shp')
+
+#%% Step 3
+import geopandas as gpd
+path = 'genx/wind_shp/'
+
+regions = ['NR', 'SR', 'WR', 'ER', 'NER']
+
+for r in regions:
+    gdf = gpd.read_file(path+r+'_wind_points.shp')
+
+    reduced_gdf = gdf[gdf.wind >= 4]
+
+    df = reduced_gdf[['gid', 'latitude', 'longitude', 'elevation', 'offshore', 'wrf_region', 'config']]
 
     df.to_csv('genx/points/wind/'+r+'_points.csv', index=False)
 
