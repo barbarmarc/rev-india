@@ -173,3 +173,23 @@ for p in point_files:
         file.write(resultpath+p[:-10]+'s'+"\n")
         file.close()      
 """
+
+path = 'genx/results/'
+
+dirlist = os.listdir(path)
+regions = ['ER', 'NER', 'NR', 'SR', 'WR']
+for i in range(5):
+    t1 = pd.read_csv(path+dirlist[i*5])
+    t2 = pd.read_csv(path+dirlist[i*5+1])
+    t3 = pd.read_csv(path+dirlist[i*5+2])
+    t4 = pd.read_csv(path+dirlist[i*5+3])
+    t5 = pd.read_csv(path+dirlist[i*5+4])
+
+    df = pd.DataFrame()
+    df[dirlist[i*5][3:-7]] = t1[regions[i]].tolist()
+    df[dirlist[i*5+1][3:-7]] = t2[regions[i]].tolist()
+    df[dirlist[i*5+2][3:-7]] = t3[regions[i]].tolist()
+    df[dirlist[i*5+3][3:-7]] = t4[regions[i]].tolist()
+    df[dirlist[i*5+4][3:-7]] = t5[regions[i]].tolist()
+
+    df.to_csv(regions[i]+'.csv')
