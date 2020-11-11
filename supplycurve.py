@@ -8,11 +8,14 @@ import math
 import pyproj
 from rasterio.mask import mask
 from shapely.geometry import Polygon, Point
+from scipy.spatial import cKDTree
+import shapely.ops as ops
+from functools import partial
+import matplotlib.pyplot as plt
 
 path = 'genx/tiff/'
 
-elevation = rio.open(path+'ELE.tif')
-lulc = gpd.read_file(path+'lulc_permissible.shp')
+#lulc = gpd.read_file(path+'lulc_permissible.shp')
 
 def getFeatures(gdf):
     """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
@@ -20,6 +23,7 @@ def getFeatures(gdf):
     return [json.loads(gdf.to_json())['features'][0]['geometry']]
 
 def get_potential(path, elevation, lulc):
+    elevation = rio.open(path+'ELE.tif')
     geo = lulc[200:201]
     cnt = 1
     solar, wind = [], []
@@ -115,31 +119,7 @@ def get_potential(path, elevation, lulc):
     gdf.to_file(path+'lulc_permissible_slope.shp')
 
 
-lulc = gpd.read_file(path+'lulc_permissible_slope.shp')
-transmission_nodes = gpd.read_file('C:/Users/marcb/Dropbox (MIT)/FofS/India/Data/GIS/nx/nodes.shp')
-net = nx.read_shp('C:/Users/marcb/Dropbox (MIT)/FofS/India/Data/GIS/nx/edges.shp')
-nodea = nx.get_edge_attributes(net, 'NodeA') 
-nodeb = nx.get_edge_attributes(net, 'NodeB') 
-voltage = nx.get_edge_attributes(net, 'voltage')
-name = nx.get_edge_attributes(net, 'name')
-atr = pd.DataFrame(zip(list(nodea.values()),list(nodeb.values()),list(voltage.values()),list(name.values())), columns=['NodeA','NodeB','voltage','name'])
-atr = atr[atr.voltage >0]
-
-cost_df = pd.DataFrame([[554456.63, 16647.24, 68468.01],[242,295,312]],columns=[765,400,220], index=['cc_km','cc_mw_km'])
-cost_df = cost_df.T
-
-node_points, node_voltage = [], []
-for index, row in atr.iterrows():
-    if row.NodeA not in node_points:
-        node_points.append(row.NodeA)
-        node_voltage.append(row.voltage)
-    if row.NodeB not in node_points:
-        node_points.append(row.NodeB)
-        node_voltage.append(row.voltage)
-
-node_df = pd.DataFrame(zip(node_points, node_voltage),columns=['Node','voltage'])
-
-def haversine_euclidean_distance(point1,point2):
+def hed(point1,point2):
     
     R = 6372800  # Earth radius in meters
 
@@ -157,47 +137,159 @@ def haversine_euclidean_distance(point1,point2):
 
     return (2*R*math.atan2(math.sqrt(a), math.sqrt(1 - a)))/1000 # in kilometers
 
-cc_lulc, cc_mw_lulc = [], []
-cnt = 1
-for g in lulc.geometry:
-    centroid = g.centroid
+def transmission_cost():
+    lulc = gpd.read_file(path+'lulc_permissible_slope.shp')
+    transmission_nodes = gpd.read_file('C:/Users/marcb/Dropbox (MIT)/FofS/India/Data/GIS/nx/nodes.shp')
+    net = nx.read_shp('C:/Users/marcb/Dropbox (MIT)/FofS/India/Data/GIS/nx/edges.shp')
+    nodea = nx.get_edge_attributes(net, 'NodeA') 
+    nodeb = nx.get_edge_attributes(net, 'NodeB') 
+    voltage = nx.get_edge_attributes(net, 'voltage')
+    name = nx.get_edge_attributes(net, 'name')
+    atr = pd.DataFrame(zip(list(nodea.values()),list(nodeb.values()),list(voltage.values()),list(name.values())), columns=['NodeA','NodeB','voltage','name'])
+    atr = atr[atr.voltage >0]
 
-    distance = []
-    for i in transmission_nodes.geometry:
-        distance.append(haversine_euclidean_distance(i,centroid))
-    
-    transmission_nodes['distance'] = distance
+    cost_df = pd.DataFrame([[554456.63, 16647.24, 68468.01],[242,295,312]],columns=[765,400,220], index=['cc_km','cc_mw_km'])
+    cost_df = cost_df.T
 
-    cc_km, cc_mw_km = [], []
-    for index, row in transmission_nodes.iterrows():
-        if row.Node in node_df.Node.tolist():
-            voltage_level = node_df[node_df.Node==row.Node].voltage.iloc[0]
-            if voltage_level == 400:
-                cc_km.append(cost_df[400]['cc_km']*row.distance)
-                cc_mw_km.append(cost_df[400]['cc_mw_km'])
-            elif voltage_level == 500:
-                cc_km.append(cost_df[400]['cc_km']*row.distance)
-                cc_mw_km.append(cost_df[400]['cc_mw_km'])
+    node_points, node_voltage = [], []
+    for index, row in atr.iterrows():
+        if row.NodeA not in node_points:
+            node_points.append(row.NodeA)
+            node_voltage.append(row.voltage)
+        if row.NodeB not in node_points:
+            node_points.append(row.NodeB)
+            node_voltage.append(row.voltage)
+
+    node_df = pd.DataFrame(zip(node_points, node_voltage),columns=['Node','voltage'])
+
+    cc_lulc, cc_mw_lulc = [], []
+    cnt = 1
+    for g in lulc.geometry:
+        centroid = g.centroid
+
+        distance = []
+        for i in transmission_nodes.geometry:
+            distance.append(hed(i,centroid))
+        
+        transmission_nodes['distance'] = distance
+
+        cc_km, cc_mw_km = [], []
+        for index, row in transmission_nodes.iterrows():
+            if row.Node in node_df.Node.tolist():
+                voltage_level = node_df[node_df.Node==row.Node].voltage.iloc[0]
+                if voltage_level == 400:
+                    cc_km.append(cost_df[400]['cc_km']*row.distance)
+                    cc_mw_km.append(cost_df[400]['cc_mw_km'])
+                elif voltage_level == 500:
+                    cc_km.append(cost_df[400]['cc_km']*row.distance)
+                    cc_mw_km.append(cost_df[400]['cc_mw_km'])
+                else:
+                    cc_km.append(cost_df[765]['cc_km']*row.distance)
+                    cc_mw_km.append(cost_df[765]['cc_mw_km'])
             else:
-                cc_km.append(cost_df[765]['cc_km']*row.distance)
-                cc_mw_km.append(cost_df[765]['cc_mw_km'])
-        else:
-            cc_km.append(np.inf)
-            cc_mw_km.append(np.inf)
+                cc_km.append(np.inf)
+                cc_mw_km.append(np.inf)
+        
+        transmission_nodes['capital_cost'] = cc_km
+        transmission_nodes['cc_mw_km'] = cc_mw_km
+
+        val = transmission_nodes[transmission_nodes.capital_cost == transmission_nodes.capital_cost.min()]
+
+        cc_lulc.append(val.capital_cost.iloc[0])
+        cc_mw_lulc.append(val.cc_mw_km.iloc[0])
+
+        print(100*(cnt/len(lulc)))
+        cnt += 1   
+
+    lulc['CC'] = cc_lulc
+    lulc['CC_MW_KM'] = cc_mw_lulc
+
+    gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
+    gdf.to_file(path+'lulc_permissible_slope_tr.shp')
+
+def calc_lcoe(mw, cf):
+    cc = 1566 * mw * 1000# $/kW
+    fom = 19 * mw * 1000#$/kW-yr
+    fcr = 0.07
+    if mw != 0:
+        return ((cc*fcr)+fom)/(8760*mw*cf)
+    else:
+        return 0
     
-    transmission_nodes['capital_cost'] = cc_km
-    transmission_nodes['cc_mw_km'] = cc_mw_km
+def calc_lcoe_tr(mw, cf, tr):
+    cc = 1566 * mw * 1000# $/kW
+    cc += tr
+    fom = 19 * mw * 1000#$/kW-yr
+    fcr = 0.07
+    if mw != 0:
+        return ((cc*fcr)+fom)/(8760*mw*cf)
+    else:
+        return 0
 
-    val = transmission_nodes[transmission_nodes.capital_cost == transmission_nodes.capital_cost.min()]
+def ckdnearest(gdA, gdB):
+    nA = np.array(list(gdA.geometry.apply(lambda x: (x.x, x.y))))
+    nB = np.array(list(gdB.geometry.apply(lambda x: (x.x, x.y))))
+    btree = cKDTree(nB)
+    dist, idx = btree.query(nA, k=1)
+    gdf = pd.concat(
+        [gdA.reset_index(drop=True), gdB.loc[idx, gdB.columns != 'geometry'].reset_index(drop=True),
+         pd.Series(dist, name='dist')], axis=1)
+    return gdf
 
-    cc_lulc.append(val.capital_cost.iloc[0])
-    cc_mw_lulc.append(val.cc_mw_km.iloc[0])
+def get_lcoe():
+    lulc = gpd.read_file(path+'lulc_permissible_slope_tr.shp')
+    solar_cf = gpd.read_file('hr_sampling/solar/solar_cf.shp')
+    wind_cf = gpd.read_file('hr_sampling/wind/wind_cf.shp')
 
-    print(100*(cnt/len(lulc)))
-    cnt += 1   
+    centroids = []
+    for g in lulc.geometry:
+        centroids.append(g.centroid)
+    lulc['centroid'] = centroids
+    lulc = lulc.rename(columns={"geometry": "polygon", "centroid": "geometry"})
 
-lulc['CC'] = cc_lulc
-lulc['CC_MW_KM'] = cc_mw_lulc
+    lulc = ckdnearest(lulc,solar_cf)
+    lulc = lulc.rename(columns={"cf_mean":"cf_solar"})
+    lulc = ckdnearest(lulc,wind_cf)
+    lulc = lulc.rename(columns={"geometry": "centroid","polygon": "geometry","cf_mean":"cf_wind"})
+    del lulc['lat']
+    del lulc['lon']
+    del lulc['gid']
+    del lulc['dist']
+    del lulc['centroid']
 
-gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
-gdf.to_file(path+'lulc_permissible_slope_tr.shp')
+    solar_pd = 32 #mw/km2
+    wind_pd = 4 #mw/km2
+    area = 20.7 #km2
+
+    lulc['mw_solar'] = lulc.apply(lambda x: area*solar_pd*(x['solar']/100),axis=1)
+    lulc['mw_wind'] = lulc.apply(lambda x: area*wind_pd*(x['wind']/100),axis=1)
+
+    lulc['lcoe_w'] = lulc.apply(lambda x: calc_lcoe(x['mw_wind'], x['cf_wind']),axis=1)
+
+    lulc['lcoe_s'] = lulc.apply(lambda x: calc_lcoe(x['mw_solar'], x['cf_solar']),axis=1)
+
+    lulc['lcoe_w_tr'] = lulc.apply(lambda x: calc_lcoe_tr(x['mw_wind'], x['cf_wind'],x['CC']),axis=1)
+
+    lulc['lcoe_s_tr'] = lulc.apply(lambda x: calc_lcoe_tr(x['mw_solar'], x['cf_solar'], x['CC']),axis=1)
+
+    gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
+    gdf.to_file(path+'lulc_permissible_slope_tr_lcoe.shp')
+
+lulc = gpd.read_file(path+'lulc_permissible_slope_tr_lcoe.shp')
+
+supply_curve_solar_wo_tr = lulc[['cf_solar','mw_solar','lcoe_s']]
+supply_curve_solar_wo_tr = supply_curve_solar_wo_tr[supply_curve_solar_wo_tr.mw_solar > 0]
+supply_curve_solar_wo_tr = supply_curve_solar_wo_tr.sort_values('mw_solar')
+
+supply_curve_solar_w_tr = lulc[['cf_solar','mw_solar','lcoe_s_tr']]
+supply_curve_solar_w_tr = supply_curve_solar_w_tr[supply_curve_solar_w_tr.mw_solar > 0]
+supply_curve_solar_w_tr = supply_curve_solar_w_tr.sort_values('mw_solar')
+
+supply_curve_wind_wo_tr = lulc[['cf_wind','mw_wind','lcoe_w']]
+supply_curve_wind_wo_tr = supply_curve_wind_wo_tr[supply_curve_wind_wo_tr.mw_wind > 0]
+supply_curve_wind_wo_tr = supply_curve_wind_wo_tr.sort_values('mw_wind')
+
+supply_curve_wind_w_tr = lulc[['cf_wind','mw_wind','lcoe_w_tr']]
+supply_curve_wind_w_tr = supply_curve_wind_w_tr[supply_curve_wind_w_tr.mw_wind > 0]
+supply_curve_wind_w_tr = supply_curve_wind_w_tr.sort_values('mw_wind')
+
