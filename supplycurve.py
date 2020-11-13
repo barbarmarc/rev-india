@@ -12,6 +12,8 @@ from scipy.spatial import cKDTree
 import shapely.ops as ops
 from functools import partial
 import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
 
 path = 'genx/tiff/'
 
@@ -207,20 +209,29 @@ def transmission_cost():
     gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
     gdf.to_file(path+'lulc_permissible_slope_tr.shp')
 
-def calc_lcoe(mw, cf):
-    cc = 1566 * mw * 1000# $/kW
-    fom = 19 * mw * 1000#$/kW-yr
-    fcr = 0.07
+def calc_lcoe(mw, cf, tech):
+    if tech == 'solar':
+        cc = 1566 * mw * 1000# $/kW
+        fom = 19 * mw * 1000#$/kW-yr
+    else:
+        cc = 1712 * mw * 1000# $/kW
+        fom = 43 * mw * 1000#$/kW-yr
+    fcr = 0.09
     if mw != 0:
         return ((cc*fcr)+fom)/(8760*mw*cf)
     else:
         return 0
     
-def calc_lcoe_tr(mw, cf, tr):
-    cc = 1566 * mw * 1000# $/kW
-    cc += tr
-    fom = 19 * mw * 1000#$/kW-yr
-    fcr = 0.07
+def calc_lcoe_tr(mw, cf, tr,tech):
+    if tech == 'solar':
+        cc = 1566 * mw * 1000# $/kW
+        cc += tr
+        fom = 19 * mw * 1000#$/kW-yr
+    else:
+        cc = 1712 * mw * 1000# $/kW
+        cc += tr
+        fom = 43 * mw * 1000#$/kW-yr
+    fcr = 0.09
     if mw != 0:
         return ((cc*fcr)+fom)/(8760*mw*cf)
     else:
@@ -264,32 +275,63 @@ def get_lcoe():
     lulc['mw_solar'] = lulc.apply(lambda x: area*solar_pd*(x['solar']/100),axis=1)
     lulc['mw_wind'] = lulc.apply(lambda x: area*wind_pd*(x['wind']/100),axis=1)
 
-    lulc['lcoe_w'] = lulc.apply(lambda x: calc_lcoe(x['mw_wind'], x['cf_wind']),axis=1)
+    lulc['lcoe_w'] = lulc.apply(lambda x: calc_lcoe(x['mw_wind'], x['cf_wind'], 'wind'),axis=1)
 
-    lulc['lcoe_s'] = lulc.apply(lambda x: calc_lcoe(x['mw_solar'], x['cf_solar']),axis=1)
+    lulc['lcoe_s'] = lulc.apply(lambda x: calc_lcoe(x['mw_solar'], x['cf_solar'], 'solar'),axis=1)
 
-    lulc['lcoe_w_tr'] = lulc.apply(lambda x: calc_lcoe_tr(x['mw_wind'], x['cf_wind'],x['CC']),axis=1)
+    lulc['lcoe_w_tr'] = lulc.apply(lambda x: calc_lcoe_tr(x['mw_wind'], x['cf_wind'],x['CC'], 'wind'),axis=1)
 
-    lulc['lcoe_s_tr'] = lulc.apply(lambda x: calc_lcoe_tr(x['mw_solar'], x['cf_solar'], x['CC']),axis=1)
+    lulc['lcoe_s_tr'] = lulc.apply(lambda x: calc_lcoe_tr(x['mw_solar'], x['cf_solar'], x['CC'], 'solar'),axis=1)
 
     gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
     gdf.to_file(path+'lulc_permissible_slope_tr_lcoe.shp')
 
-lulc = gpd.read_file(path+'lulc_permissible_slope_tr_lcoe.shp')
+def build_sc(tech, tr=True):
+    lulc = gpd.read_file(path+'lulc_permissible_slope_tr_lcoe.shp')
 
-supply_curve_solar_wo_tr = lulc[['cf_solar','mw_solar','lcoe_s']]
-supply_curve_solar_wo_tr = supply_curve_solar_wo_tr[supply_curve_solar_wo_tr.mw_solar > 0]
-supply_curve_solar_wo_tr = supply_curve_solar_wo_tr.sort_values('mw_solar')
+    lulc = lulc[['cf_solar', 'cf_wind', 'mw_solar', 'mw_wind', 'lcoe_w', 'lcoe_s','lcoe_w_tr', 'lcoe_s_tr', 'CC']]
+    if tr == False:
+        if tech == 'solar':
+            lcoe = 'lcoe_s'
+        else:
+            lcoe = 'lcoe_w'
+    else:
+        if tech == 'solar':
+            lcoe = 'lcoe_s_tr'
+        else:
+            lcoe = 'lcoe_w_tr'
+    
+    supply_curve = lulc[['cf_'+tech,'mw_'+tech,lcoe, 'CC']]
+    supply_curve = supply_curve[supply_curve['mw_'+tech] > 0]
+    supply_curve = supply_curve.sort_values(lcoe)
+    supply_curve = supply_curve.reset_index()
 
-supply_curve_solar_w_tr = lulc[['cf_solar','mw_solar','lcoe_s_tr']]
-supply_curve_solar_w_tr = supply_curve_solar_w_tr[supply_curve_solar_w_tr.mw_solar > 0]
-supply_curve_solar_w_tr = supply_curve_solar_w_tr.sort_values('mw_solar')
+    x = supply_curve[lcoe].to_numpy().reshape(-1,1)
+    clusterer = KMeans(n_clusters=5)
+    clusters = clusterer.fit(x)
+    supply_curve['cluster'] = clusters.labels_
 
-supply_curve_wind_wo_tr = lulc[['cf_wind','mw_wind','lcoe_w']]
-supply_curve_wind_wo_tr = supply_curve_wind_wo_tr[supply_curve_wind_wo_tr.mw_wind > 0]
-supply_curve_wind_wo_tr = supply_curve_wind_wo_tr.sort_values('mw_wind')
+    centers = list(np.sort(clusters.cluster_centers_.flatten()))
+    w_avg_cf, w_avg_cc, min_mw, max_mw, avg_mw = [], [], [], [], []
+    for n in supply_curve.cluster.unique():
+        df = supply_curve[supply_curve.cluster == n]
+        w_avg_cf.append(round((df['cf_'+tech] * df['mw_'+tech]).sum()/ df['mw_'+tech].sum(),2))
+        w_avg_cc.append(round((df['CC'] * df['mw_'+tech]).sum()/ df['mw_'+tech].sum(),2))
+        min_mw.append(round(df['mw_'+tech].min(),2))
+        max_mw.append(round(df['mw_'+tech].max(),2))
+        avg_mw.append(round(df['mw_'+tech].mean(),2))
+    
+    simple_sc = pd.DataFrame(zip(centers, w_avg_cf, w_avg_cc, min_mw, max_mw, avg_mw), columns=['LCOE', 'CF', 'IX', 'MIN_MW','MAX_MW','AVG_MW'])
+    ax = simple_sc.plot.bar(x='AVG_MW',y='LCOE', title=tech+' supply curve')
+    if tr == True:
+        ax.set_xlabel('MW')
+        ax.set_ylabel('LCOE $/kWh (including TX)')
+        simple_sc.to_csv('genx/supplycurve/sc_'+tech+'_tr.csv', index=False)
+    else:
+        ax.set_xlabel('MW')
+        ax.set_ylabel('LCOE $/kWh (excluding TX)')
+        simple_sc.to_csv('genx/supplycurve/sc_'+tech+'.csv', index=False)
+    plt.show()
 
-supply_curve_wind_w_tr = lulc[['cf_wind','mw_wind','lcoe_w_tr']]
-supply_curve_wind_w_tr = supply_curve_wind_w_tr[supply_curve_wind_w_tr.mw_wind > 0]
-supply_curve_wind_w_tr = supply_curve_wind_w_tr.sort_values('mw_wind')
+    return simple_sc
 
