@@ -310,12 +310,11 @@ def get_lcoe():
     gdf.to_file(path+'lulc_permissible_slope_tr_lcoe.shp')
 
 def get_cf_profiles():
+
     tech = input('Input renewable energy technology: ')
     path = 'hr_sampling/'+tech+'/'
     files = os.listdir(path)
     file_df = pd.DataFrame(files, columns=['files'])
-
-    df = pd.DataFrame()
 
     for region in ['ER', 'NER', 'NR', 'SR', 'WR']:
 
@@ -352,16 +351,14 @@ def get_cf_profiles():
                         cf_df = pd.read_csv(path+file[:-4]+'_'+str(i)+'.csv', index_col=0)
                         df_cf = pd.concat([df_cf, cf_df], axis=1)
                         columns.append(f_csv.gid.tolist())
-                        print(columns)
                     else:
                         f_csv = file_csv.loc[500*i:]
                         f_csv = f_csv.sort_values('gid')
                         cf_df = pd.read_csv(path+file[:-4]+'_'+str(i)+'.csv', index_col=0)
                         df_cf = pd.concat([df_cf, cf_df], axis=1)
                         columns.append(f_csv.gid.tolist())
-                        print(columns)
-                    columns = [item for sublist in columns for item in sublist]
-                    df_cf.columns = columns
+                columns = [item for sublist in columns for item in sublist]
+                df_cf.columns = columns
             else:
                 df_cf = pd.DataFrame()
                 f_csv = file_csv
@@ -370,9 +367,8 @@ def get_cf_profiles():
                 df_cf = pd.concat([df_cf, cf_df], axis=1)
                 df_cf.columns = f_csv.gid.tolist()
 
-        df = pd.concat([df, df_cf], axis=1)
 
-    df.to_csv(path+tech+'_cf.csv')
+        df_cf.to_csv(path+tech+'_'+region+'_cf.csv')
 
 def build_sc():
     tech = input('Input renewable energy technology: ')
@@ -383,7 +379,7 @@ def build_sc():
         tr = False
     path = 'genx/tiff/'
     lulc = gpd.read_file(path+'lulc_permissible_slope_tr_lcoe.shp')
-    cf_profiles = pd.read_csv('hr_sampling/'+tech+'/'+tech+'_cf.csv')
+    
     lulc = lulc[['cf_solar', 'cf_wind', 'mw_solar', 'mw_wind',
         'lcoe_w', 'lcoe_s', 'lcoe_w_tr', 'lcoe_s_tr', 'CC', 'gid_wind', 'gid_solar']]
     if tr == False:
@@ -396,41 +392,48 @@ def build_sc():
             lcoe = 'lcoe_s_tr'
         else:
             lcoe = 'lcoe_w_tr'
+    # {1: 'north', 2: 'west', 3: 'south', 4: 'east', 5: 'ne'}
+    for region, r in zip(['ER', 'NER', 'NR', 'SR', 'WR'], ['4', '5', '1', '3', '2']):
+        cf_profiles = pd.read_csv('hr_sampling/'+tech+'/'+tech+'_'+region+'_cf.csv', index_col = 0)
+        gid = cf_profiles.columns.tolist()
+        supply_curve = lulc[['cf_'+tech, 'mw_'+tech, 'gid_'+tech, lcoe, 'CC']]
+        supply_curve = supply_curve[supply_curve['gid_'+tech].isin(gid)]
+        supply_curve = supply_curve[supply_curve['mw_'+tech] > 0]
+        supply_curve = supply_curve.sort_values(lcoe)
+        supply_curve = supply_curve.reset_index()
 
-    supply_curve = lulc[['cf_'+tech, 'mw_'+tech, 'gid_'+tech, lcoe, 'CC']]
-    supply_curve = supply_curve[supply_curve['mw_'+tech] > 0]
-    supply_curve = supply_curve.sort_values(lcoe)
-    supply_curve = supply_curve.reset_index()
+        x = supply_curve[lcoe].to_numpy().reshape(-1, 1)
+        clusterer = KMeans(n_clusters=3)
+        clusters = clusterer.fit(x)
+        supply_curve['cluster'] = clusters.labels_
 
-    x = supply_curve[lcoe].to_numpy().reshape(-1, 1)
-    clusterer = KMeans(n_clusters=3)
-    clusters = clusterer.fit(x)
-    supply_curve['cluster'] = clusters.labels_
+        centers = list(np.sort(clusters.cluster_centers_.flatten()))
+        w_avg_cf, w_avg_cc, avg_mw = [], [], []
+        cluster_profiles = pd.DataFrame()
+        for n in [0,1,2]:
+            df = supply_curve[supply_curve.cluster == n]
+            w_avg_cf.append(
+                round((df['cf_'+tech] * df['mw_'+tech]).sum() / df['mw_'+tech].sum(), 2))
+            w_avg_cc.append(
+                round((df['CC'] * df['mw_'+tech]).sum() / df['mw_'+tech].sum(), 2))
+            avg_mw.append(round(df['mw_'+tech].sum(), 2))
+            cluster_profiles[n] = cf_profiles[df['gid_'+tech].unique()].mean(axis=1)
 
-    centers = list(np.sort(clusters.cluster_centers_.flatten()))
-    w_avg_cf, w_avg_cc, avg_mw = [], [], []
-    cluster_profiles = pd.DataFrame()
-    for n in [0,1,2]:
-        df = supply_curve[supply_curve.cluster == n]
-        w_avg_cf.append(
-            round((df['cf_'+tech] * df['mw_'+tech]).sum() / df['mw_'+tech].sum(), 2))
-        w_avg_cc.append(
-            round((df['CC'] * df['mw_'+tech]).sum() / df['mw_'+tech].sum(), 2))
-        avg_mw.append(round(df['mw_'+tech].sum(), 2))
-        cluster_profiles[n] = cf_profiles[df['gid_'+tech].unique()].mean(axis=1)
+        simple_sc = pd.DataFrame(zip(centers, w_avg_cf, w_avg_cc, avg_mw), columns=[
+                                'LCOE', 'CF', 'IX', 'MW'])
+        simple_sc.index = [1,2,3]
+        #ax = simple_sc.plot.bar(x='MW', y='LCOE', title=tech+' supply curve')
+        if tr == True:
+            #ax.set_xlabel('MW')
+            #ax.set_ylabel('LCOE $/kWh (including TX)')
+            simple_sc.to_csv('genx/supplycurve/sc_'+tech+'_'+r+'.csv')
+            cluster_profiles.columns = [1,2,3]
+            cluster_profiles.to_csv('genx/supplycurve/cf_profiles_'+tech+'_'+r+'.csv', index=False)
+        else:
+            #ax.set_xlabel('MW')
+            #ax.set_ylabel('LCOE $/kWh (excluding TX)')
+            simple_sc.to_csv('genx/supplycurve/sc_'+tech+'_'+r+'_wo_tr.csv', index=False)
 
-    simple_sc = pd.DataFrame(zip(centers, w_avg_cf, w_avg_cc, avg_mw), columns=[
-                             'LCOE', 'CF', 'IX', 'MW'])
-    ax = simple_sc.plot.bar(x='MW', y='LCOE', title=tech+' supply curve')
-    if tr == True:
-        ax.set_xlabel('MW')
-        ax.set_ylabel('LCOE $/kWh (including TX)')
-        simple_sc.to_csv('genx/supplycurve/sc_'+tech+'_tr.csv', index=False)
-        cluster_profiles.to_csv('genx/supplycurve/cf_profiles_'+tech+'.csv', index=False)
-    else:
-        ax.set_xlabel('MW')
-        ax.set_ylabel('LCOE $/kWh (excluding TX)')
-        simple_sc.to_csv('genx/supplycurve/sc_'+tech+'.csv', index=False)
-    plt.show()
-
-    return simple_sc
+        print(region)
+        print(simple_sc)
+        #plt.show()
