@@ -175,7 +175,7 @@ def transmission_cost():
     node_df = pd.DataFrame(zip(node_points, node_voltage),
                            columns=['Node', 'voltage'])
 
-    cc_lulc, cc_mw_lulc = [], []
+    cc_lulc = []
     cnt = 1
     for g in lulc.geometry:
         centroid = g.centroid
@@ -186,38 +186,31 @@ def transmission_cost():
 
         transmission_nodes['distance'] = distance
 
-        cc_km, cc_mw_km = [], []
+        cc_mw = []
         for index, row in transmission_nodes.iterrows():
             if row.Node in node_df.Node.tolist():
                 voltage_level = node_df[node_df.Node ==
                     row.Node].voltage.iloc[0]
                 if voltage_level == 400:
-                    cc_km.append(cost_df[400]['cc_km']*row.distance)
-                    cc_mw_km.append(cost_df[400]['cc_mw_km'])
+                    cc_mw.append(cost_df['cc_mw_km'][400]*row.distance)
                 elif voltage_level == 500:
-                    cc_km.append(cost_df[400]['cc_km']*row.distance)
-                    cc_mw_km.append(cost_df[400]['cc_mw_km'])
+                    cc_mw.append(cost_df['cc_mw_km'][400]*row.distance)
                 else:
-                    cc_km.append(cost_df[765]['cc_km']*row.distance)
-                    cc_mw_km.append(cost_df[765]['cc_mw_km'])
+                    cc_mw.append(cost_df['cc_mw_km'][765]*row.distance)
             else:
-                cc_km.append(np.inf)
-                cc_mw_km.append(np.inf)
+                cc_mw.append(np.inf)
 
-        transmission_nodes['capital_cost'] = cc_km
-        transmission_nodes['cc_mw_km'] = cc_mw_km
+        transmission_nodes['cc_mw'] = cc_mw
 
-        val = transmission_nodes[transmission_nodes.capital_cost ==
-            transmission_nodes.capital_cost.min()]
+        val = transmission_nodes[transmission_nodes.cc_mw ==
+            transmission_nodes.cc_mw.min()]
 
-        cc_lulc.append(val.capital_cost.iloc[0])
-        cc_mw_lulc.append(val.cc_mw_km.iloc[0])
+        cc_lulc.append(val.cc_mw.iloc[0])
 
         print(100*(cnt/len(lulc)))
         cnt += 1
 
-    lulc['CC'] = cc_lulc
-    lulc['CC_MW_KM'] = cc_mw_lulc
+    lulc['IX_MW'] = cc_lulc
 
     gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
     gdf.to_file(path+'lulc_permissible_slope_tr.shp')
@@ -240,11 +233,11 @@ def calc_lcoe(mw, cf, tech):
 def calc_lcoe_tr(mw, cf, tr, tech):
     if tech == 'solar':
         cc = 1566 * mw * 1000  # $/kW
-        cc += tr
+        cc += tr * mw
         fom = 19 * mw * 1000  # $/kW-yr
     else:
         cc = 1712 * mw * 1000  # $/kW
-        cc += tr
+        cc += tr * mw
         fom = 43 * mw * 1000  # $/kW-yr
     fcr = 0.09
     if mw != 0:
@@ -301,10 +294,10 @@ def get_lcoe():
         x['mw_solar'], x['cf_solar'], 'solar'), axis=1)
 
     lulc['lcoe_w_tr'] = lulc.apply(lambda x: calc_lcoe_tr(
-        x['mw_wind'], x['cf_wind'], x['CC'], 'wind'), axis=1)
+        x['mw_wind'], x['cf_wind'], x['IX_MW'], 'wind'), axis=1)
 
     lulc['lcoe_s_tr'] = lulc.apply(lambda x: calc_lcoe_tr(
-        x['mw_solar'], x['cf_solar'], x['CC'], 'solar'), axis=1)
+        x['mw_solar'], x['cf_solar'], x['IX_MW'], 'solar'), axis=1)
 
     gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
     gdf.to_file(path+'lulc_permissible_slope_tr_lcoe.shp')
@@ -381,7 +374,7 @@ def build_sc():
     lulc = gpd.read_file(path+'lulc_permissible_slope_tr_lcoe.shp')
     
     lulc = lulc[['cf_solar', 'cf_wind', 'mw_solar', 'mw_wind',
-        'lcoe_w', 'lcoe_s', 'lcoe_w_tr', 'lcoe_s_tr', 'CC', 'gid_wind', 'gid_solar']]
+        'lcoe_w', 'lcoe_s', 'lcoe_w_tr', 'lcoe_s_tr', 'IX_MW', 'gid_wind', 'gid_solar']]
     if tr == False:
         if tech == 'solar':
             lcoe = 'lcoe_s'
@@ -396,7 +389,7 @@ def build_sc():
     for region, r in zip(['ER', 'NER', 'NR', 'SR', 'WR'], ['4', '5', '1', '3', '2']):
         cf_profiles = pd.read_csv('hr_sampling/'+tech+'/'+tech+'_'+region+'_cf.csv', index_col = 0)
         gid = cf_profiles.columns.tolist()
-        supply_curve = lulc[['cf_'+tech, 'mw_'+tech, 'gid_'+tech, lcoe, 'CC']]
+        supply_curve = lulc[['cf_'+tech, 'mw_'+tech, 'gid_'+tech, lcoe, 'IX_MW']]
         supply_curve = supply_curve[supply_curve['gid_'+tech].isin(gid)]
         supply_curve = supply_curve[supply_curve['mw_'+tech] > 0]
         supply_curve = supply_curve.sort_values(lcoe)
@@ -415,7 +408,7 @@ def build_sc():
             w_avg_cf.append(
                 round((df['cf_'+tech] * df['mw_'+tech]).sum() / df['mw_'+tech].sum(), 2))
             w_avg_cc.append(
-                round((df['CC'] * df['mw_'+tech]).sum() / df['mw_'+tech].sum(), 2))
+                round((df['IX_MW'] * df['mw_'+tech]).sum() / df['mw_'+tech].sum(), 2))
             avg_mw.append(round(df['mw_'+tech].sum(), 2))
             cluster_profiles[n] = cf_profiles[df['gid_'+tech].unique()].mean(axis=1)
 
