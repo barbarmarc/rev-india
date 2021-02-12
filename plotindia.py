@@ -8,7 +8,7 @@ from matplotlib import colors
 from scipy.spatial import cKDTree
 
 tech = input('Input renewable energy technology: ')
-path = 'hr_sampling/'+tech+'/'
+path = 'supplycurve/hr_sampling/'+tech+'/'
 files = os.listdir(path)
 file_df = pd.DataFrame(files, columns=['files'])
 
@@ -84,7 +84,7 @@ def ckdnearest(gdA, gdB):
          pd.Series(dist, name='dist')], axis=1)
     return gdf
 
-india = gpd.read_file('genx/tiff/indiagrid.shp')
+india = gpd.read_file('supplycurve/india/indiagrid.shp')
 tech_cf = gdf
 
 centroids = []

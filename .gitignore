@@ -6,3 +6,6 @@ genx/tiff/*
 asf/*
 rev.log
 hr_sampling/*
+supplycurve/*
+points/*
+.ipynb_checkpoints/*

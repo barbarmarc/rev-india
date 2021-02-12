@@ -1,5 +1,0 @@
-genx/results/ER_5.5_s
-genx/results/NER_5.5_s
-genx/results/NR_5.5_s
-genx/results/SR_5.5_s
-genx/results/WR_5.5_s

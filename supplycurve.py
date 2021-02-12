@@ -15,115 +15,106 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from matplotlib import colors
-
-path = 'genx/tiff/'
-
-# lulc = gpd.read_file(path+'lulc_permissible.shp')
-
-
-def getFeatures(gdf):
-    """Function to parse features from GeoDataFrame in such a manner that rasterio wants them"""
-    import json
-    return [json.loads(gdf.to_json())['features'][0]['geometry']]
+from shapely.geometry import mapping
+from area import area
+from pyproj import Geod
 
 
-def get_potential(path, elevation, lulc):
-    elevation = rio.open(path+'ELE.tif')
-    geo = lulc[200:201]
-    cnt = 1
-    solar, wind = [], []
-    for k in range(len(lulc)-1):
-        geo = lulc[k:k+1]
+def clean(df1, no_data, tech=None, clip=False):
+    left = df1[0]
+    right = df1[len(df1.columns)-1]
+    upper = df1.loc[0]
+    lower = df1.loc[len(df1.index)-1]
 
-        coords = getFeatures(geo)
+    if upper.unique()[0] == no_data and len(upper.unique())==1:
+        df1 = df1[1:]
 
-        out_img, out_transform = mask(
-            dataset=elevation, shapes=coords, crop=True)
+    if lower.unique()[0] == no_data and len(lower.unique())==1:
+        df1 = df1[:-1]
 
-        df = pd.DataFrame(out_img[0])
-        length = int(df.size/len(df))
-        if all(df[0] == 0):
-            del df[0]
-        if all(df[length-1] == 0):
-            del df[length-1]
-        if all(df.loc[len(df)-1] == 0):
-            df = df.drop(len(df)-1)
-        if all(df.loc[0] == 0):
-            df = df.drop(0)
+    if left.unique()[0] == no_data and len(left.unique())==1:
+        df1 = df1[df1.columns.tolist()[1:]]   
 
-        slope_lateral = []
-        for index, row in df.iterrows():
-            slope_1 = []
-            for p in range(len(row.tolist())-1):
-                slope_1.append(abs((row.tolist()[p+1]-row.tolist()[p])/925))
-            slope_lateral.append(slope_1)
+    if right.unique()[0] == no_data and len(right.unique())==1:
+        df1 = df1[df1.columns.tolist()[:-1]]   
 
-        slope_vertical = []
-        for index, row in df.iteritems():
-            slope_1 = []
-            for p in range(len(row.tolist())-1):
-                slope_1.append(abs((row.tolist()[p+1]-row.tolist()[p])/925))
-            slope_vertical.append(slope_1)
+    if clip == True:
+        df1 = df1.where(df1 < no_data, other=0)
 
-        import networkx as nx
+    if tech == 'solar':
+        df1 = df1[df1.isin([14,8,5,13])] 
+        df1 = df1.fillna(0)
+    elif tech == 'wind':
+        df1 = df1[df1.isin([14,8,2,5,6,7,13])] 
+        df1 = df1.fillna(0)
+    else:
+        pass
+    return df1
 
-        G = nx.Graph()
+def get_potential():
 
-        for i in range(df.size):
-            G.add_node(i)
+    all_solar, all_wind = [], []
+    shapefile = gpd.read_file("supplycurve/india/indiagrid.shp")
 
-        for j in range(len(df)-1):
-            for i in range(len(df.columns)):
-                s = i+j*len(df)
-                t = s+len(df.columns)
-                if s < df.size:
-                    w = slope_vertical[i][j]
-                    G.add_edge(s, t, weight=w)
+    areas = []
+    for index, row in shapefile.iterrows():
 
-        for j in range(len(df)):
-            for i in range(len(df.columns)-1):
-                s = i+j*len(df.columns)
-                t = i+j*len(df.columns)+1
-                if s != t:
-                    w = slope_lateral[j][i]
-                    G.add_edge(s, t, weight=w)
+        # transform to GeJSON format
+        geoms = [mapping(row.geometry)]
 
-        slope_weight = []
-        for i in range(df.size):
-            weight = nx.get_edge_attributes(G, 'weight')
-            weights = []
-            for e in G.edges(i):
-                try:
-                    weights.append(weight[e])
-                except:
-                    weights.append(weight[(e[1], e[0])])
-            slope_weight.append(np.mean(weights))
+        geod = Geod(ellps="WGS84")
+        area = abs(geod.geometry_area_perimeter(row.geometry)[0])
+        areas.append(area/1e6)
+        # extract the raster values values within the polygon 
 
-        slope_weights = []
-        for i in range(len(df.columns)):
-            slope_weights.append(
-                slope_weight[i*len(df.columns):i*len(df.columns)+len(df.columns)])
+        with rio.open("supplycurve/output.tif") as src:
+            out_image, out_transform = mask(src, geoms, crop=True)
+            no_data = src.nodata
+        df1solar = clean(pd.DataFrame(out_image[0]),no_data, tech='solar',clip=True)
+        df1wind = clean(pd.DataFrame(out_image[0]), no_data, tech='wind',clip=True)
+        df2 = clean(pd.DataFrame(out_image[1]), no_data) # solar
+        df3 = clean(pd.DataFrame(out_image[2]), no_data) # wind
 
-        slope_df = pd.DataFrame(slope_weights)
-        slope_df = slope_df*100
+        df4 = df1solar.mul(df2) # solar
+        df5 = df1wind.mul(df3) # wind
 
-        slope_solar = slope_df[slope_df <= 5]
-        solar_land_percentage = 100*(slope_solar.count().sum()/slope_df.size)
+        df1_solar = df1solar[df4!=0]
+        df1_solar = df1_solar.where(~np.isnan(df1_solar), other=no_data) 
+        solar_area = df1_solar.to_numpy()
 
-        slope_wind = slope_df[slope_df <= 20]
-        wind_land_percentage = 100*(slope_wind.count().sum()/slope_df.size)
+        df1_wind = df1wind[df5!=0]
+        df1_wind = df1_wind.where(~np.isnan(df1_wind), other=no_data)
+        wind_area = df1_wind.to_numpy()
 
-        solar.append(solar_land_percentage)
-        wind.append(wind_land_percentage)
 
-        print(100*(cnt/len(lulc)))
-        cnt += 1
+        unique_solar, counts_solar = np.unique(solar_area, return_counts=True)
+        unique_wind, counts_wind = np.unique(wind_area, return_counts=True)
 
-    lulc['solar'] = solar
-    lulc['wind'] = wind
+        solar_value_counts = dict(zip(unique_solar, [round(100*i,2) for i in counts_solar/counts_solar.sum()]))
+        
+        if no_data in solar_value_counts.keys():
+            solar_percent = round(100-solar_value_counts[no_data],2)
+        else:
+            solar_percent = 100
 
-    gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
-    gdf.to_file(path+'lulc_permissible_slope.shp')
+        wind_value_counts = dict(zip(unique_wind, [round(100*i,2) for i in counts_wind/counts_wind.sum()]))
+
+        if no_data in wind_value_counts.keys():
+            wind_percent = round(100-wind_value_counts[no_data],2)
+        else:
+            wind_percent = 100
+
+        all_solar.append(solar_percent)
+        all_wind.append(wind_percent)
+
+        print(index/len(shapefile))
+
+    shapefile['solar'] = all_solar
+    shapefile['wind'] = all_wind
+    shapefile['area'] = areas
+
+    gdf = gpd.GeoDataFrame(shapefile, geometry='geometry')
+    gdf.to_file('supplycurve/lulc_tech.shp')
 
 
 def hed(point1, point2):
@@ -146,11 +137,11 @@ def hed(point1, point2):
 
 
 def transmission_cost():
-    lulc = gpd.read_file(path+'lulc_permissible_slope.shp')
+    lulc = gpd.read_file('supplycurve/lulc_tech.shp')
     transmission_nodes = gpd.read_file(
-        'C:/Users/marcb/Dropbox (MIT)/FofS/India/Data/GIS/nx/nodes.shp')
+        'supplycurve/nx/nodes.shp')
     net = nx.read_shp(
-        'C:/Users/marcb/Dropbox (MIT)/FofS/India/Data/GIS/nx/edges.shp')
+        'supplycurve/nx/edges.shp')
     nodea = nx.get_edge_attributes(net, 'NodeA')
     nodeb = nx.get_edge_attributes(net, 'NodeB')
     voltage = nx.get_edge_attributes(net, 'voltage')
@@ -213,16 +204,16 @@ def transmission_cost():
     lulc['IX_MW'] = cc_lulc
 
     gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
-    gdf.to_file(path+'lulc_permissible_slope_tr.shp')
+    gdf.to_file('supplycurve/lulc_tech_tr.shp')
 
 
 def calc_lcoe(mw, cf, tech):
     if tech == 'solar':
-        cc = 1566 * mw * 1000  # $/kW
-        fom = 19 * mw * 1000  # $/kW-yr
+        cc = 633.51 * mw * 1000  # $/kW
+        fom = 15.2 * mw * 1000  # $/kW-yr
     else:
-        cc = 1712 * mw * 1000  # $/kW
-        fom = 43 * mw * 1000  # $/kW-yr
+        cc = 1072.47 * mw * 1000  # $/kW
+        fom = 42.1 * mw * 1000  # $/kW-yr
     fcr = 0.09
     if mw != 0:
         return ((cc*fcr)+fom)/(8760*mw*cf)
@@ -232,13 +223,13 @@ def calc_lcoe(mw, cf, tech):
 
 def calc_lcoe_tr(mw, cf, tr, tech):
     if tech == 'solar':
-        cc = 1566 * mw * 1000  # $/kW
+        cc = 633.51 * mw * 1000  # $/kW
         cc += tr * mw
-        fom = 19 * mw * 1000  # $/kW-yr
+        fom = 15.2 * mw * 1000  # $/kW-yr
     else:
-        cc = 1712 * mw * 1000  # $/kW
+        cc = 1072.47 * mw * 1000  # $/kW
         cc += tr * mw
-        fom = 43 * mw * 1000  # $/kW-yr
+        fom = 42.1 * mw * 1000  # $/kW-yr
     fcr = 0.09
     if mw != 0:
         return ((cc*fcr)+fom)/(8760*mw*cf)
@@ -258,9 +249,9 @@ def ckdnearest(gdA, gdB):
 
 
 def get_lcoe():
-    lulc = gpd.read_file(path+'lulc_permissible_slope_tr.shp')
-    solar_cf = gpd.read_file('hr_sampling/solar/solar_cf.shp')
-    wind_cf = gpd.read_file('hr_sampling/wind/wind_cf.shp')
+    lulc = gpd.read_file('supplycurve/lulc_tech_tr.shp')
+    solar_cf = gpd.read_file('supplycurve/hr_sampling/solar/solar_cf.shp')
+    wind_cf = gpd.read_file('supplycurve/hr_sampling/wind/wind_cf.shp')
 
     centroids = []
     for g in lulc.geometry:
@@ -280,12 +271,11 @@ def get_lcoe():
 
     solar_pd = 32  # mw/km2
     wind_pd = 4  # mw/km2
-    area = 20.7  # km2
 
     lulc['mw_solar'] = lulc.apply(
-        lambda x: area*solar_pd*(x['solar']/100), axis=1)
+        lambda x: x['area']*solar_pd*(x['solar']/100), axis=1)
     lulc['mw_wind'] = lulc.apply(
-        lambda x: area*wind_pd*(x['wind']/100), axis=1)
+        lambda x: x['area']*wind_pd*(x['wind']/100), axis=1)
 
     lulc['lcoe_w'] = lulc.apply(lambda x: calc_lcoe(
         x['mw_wind'], x['cf_wind'], 'wind'), axis=1)
@@ -300,12 +290,12 @@ def get_lcoe():
         x['mw_solar'], x['cf_solar'], x['IX_MW'], 'solar'), axis=1)
 
     gdf = gpd.GeoDataFrame(lulc, geometry='geometry')
-    gdf.to_file(path+'lulc_permissible_slope_tr_lcoe.shp')
+    gdf.to_file('supplycurve/lulc_tech_tr_lcoe.shp')
 
 def get_cf_profiles():
 
     tech = input('Input renewable energy technology: ')
-    path = 'hr_sampling/'+tech+'/'
+    path = 'supplycurve/hr_sampling/'+tech+'/'
     files = os.listdir(path)
     file_df = pd.DataFrame(files, columns=['files'])
 
@@ -370,8 +360,7 @@ def build_sc():
         tr = True
     else:
         tr = False
-    path = 'genx/tiff/'
-    lulc = gpd.read_file(path+'lulc_permissible_slope_tr_lcoe.shp')
+    lulc = gpd.read_file('supplycurve/lulc_tech_tr_lcoe.shp')
     
     lulc = lulc[['cf_solar', 'cf_wind', 'mw_solar', 'mw_wind',
         'lcoe_w', 'lcoe_s', 'lcoe_w_tr', 'lcoe_s_tr', 'IX_MW', 'gid_wind', 'gid_solar']]
@@ -419,13 +408,13 @@ def build_sc():
         if tr == True:
             #ax.set_xlabel('MW')
             #ax.set_ylabel('LCOE $/kWh (including TX)')
-            simple_sc.to_csv('genx/supplycurve/sc_'+tech+'_'+r+'.csv')
+            simple_sc.to_csv('supplycurve/sc/sc_'+tech+'_'+r+'.csv')
             cluster_profiles.columns = [1,2,3]
-            cluster_profiles.to_csv('genx/supplycurve/cf_profiles_'+tech+'_'+r+'.csv', index=False)
+            cluster_profiles.to_csv('supplycurve/cf/cf_profiles_'+tech+'_'+r+'.csv', index=False)
         else:
             #ax.set_xlabel('MW')
             #ax.set_ylabel('LCOE $/kWh (excluding TX)')
-            simple_sc.to_csv('genx/supplycurve/sc_'+tech+'_'+r+'_wo_tr.csv', index=False)
+            simple_sc.to_csv('supplycurve/sc/sc_'+tech+'_'+r+'_wo_tr.csv', index=False)
 
         print(region)
         print(simple_sc)
