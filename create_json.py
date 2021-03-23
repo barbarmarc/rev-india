@@ -936,7 +936,33 @@ def create_solar(timezone):
                 }
     return file
 
+def create_solar1(timezone):
+    file = {
+                    "adjust:constant": 0,
+                    "array_type": 0,
+                    "azimuth": 180,
+                    "capital_cost": 39767200,
+                    "clearsky": "true",
+                    "dc_ac_ratio": 1.3,
+                    "fixed_charge_rate": 0.096,
+                    "fixed_operating_cost": 260000,
+                    "gcr": 0.4,
+                    "inv_eff": 96,
+                    "losses": 14.07566,
+                    "module_type": 0,
+                    "system_capacity": 20000,
+                    "tilt": 0,
+                    "variable_operating_cost": 0,
+                    "timezone": timezone
+                }
+    return file    
+
 def write_json(sam_config, type, region):
-    config_path = os.path.expanduser('genx/json/sam_config_'+type+'_'+region+'.json')
+    config_path = os.path.expanduser('json_files/sam_config_'+type+'_'+region+'.json')
+    with open(config_path, "w") as file:
+        file.write(json.dumps(sam_config, indent=4))
+
+def write_jsonfile(sam_config, type):
+    config_path = os.path.expanduser('json_files/sam_config_'+type+'.json')
     with open(config_path, "w") as file:
         file.write(json.dumps(sam_config, indent=4))

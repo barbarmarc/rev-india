@@ -9,7 +9,6 @@ with Resource(WIND, hsds=True) as file:
     points = file.meta
 
 points.index.name = "gid"
-points = points.reset_index()
 points["config"] = "default"
 
 points.to_csv("points_projects.csv")

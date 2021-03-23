@@ -13,3 +13,4 @@ query/*
 .ipynb_checkpoints/*
 conda.recipe/*
 rev-india.zip
+output/*
