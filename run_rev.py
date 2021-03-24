@@ -65,10 +65,10 @@ def run_rev(df, res_file, sam_file, renewable, j):
 	else:
 		result_df = profile_df
     
-    if not os.path.exists('output/'+renewable_choice):
-        os.makedirs('output/'+renewable_choice)
+	if not os.path.exists('output/'+renewable_choice):
+		os.makedirs('output/'+renewable_choice)
 
-    result_df.to_csv('output/'+renewable_choice+'/'+str(j)+'.csv')
+	result_df.to_csv('output/'+renewable_choice+'/'+str(j)+'.csv')
 
 rangeval = int(len(points_df)/500)+1
 
