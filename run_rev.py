@@ -1,6 +1,7 @@
 #%% packages
 import os
 import pandas as pd
+import numpy as np
 #import geopandas as gpd
 from reV.config.project_points import ProjectPoints, PointsControl
 from reV.generation.generation import Gen
