@@ -80,14 +80,14 @@ for i in range(rangeval):
         df = points_df.iloc[500*i:]
     run_rev(df, res_file, sam_file, renewable, i)
 
-_, _, filenames = next(walk('output/wind/'))
+_, _, filenames = next(walk('output/solar1/'))
 
 dfs = []
 for file in filenames:
-	dfs.append(pd.read_csv('output/wind/'+file,index_col=0))
+	dfs.append(pd.read_csv('output/solar1/'+file,index_col=0))
 
 result = pd.concat(dfs,axis=1)
-points_path = 'wind_points.csv'
+points_path = 'solar_points.csv'
 points_df = pd.read_csv(points_path)
 points_df = points_df[:4500]
 points_df.to_csv('wind_points_reduced.csv')
@@ -98,5 +98,5 @@ capacityFactorDF = pd.DataFrame()
 for point in points_df.index_right.unique():
 	capacityFactorDF[point] = np.roll(result[points_df[points_df.index_right == point].gid.tolist()].mean(axis=1),5)
 
-capacityFactorDF.to_csv('cf_wind.csv')
+capacityFactorDF.to_csv('cf_solar1.csv')
 

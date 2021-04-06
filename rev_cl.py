@@ -55,7 +55,7 @@ def run_rev(df, res_file, sam_file, renewable, j):
 		for col, item in profile_df.iteritems():
 			mean_wind = []
 			for i in range(8760):
-				lst = item.loc[i*12:i*12+11]
+				lst = item.loc[i*12:i*12+12]
 				mean_wind.append(lst.mean()) 
 			result_df[col] = mean_wind
 	else:
