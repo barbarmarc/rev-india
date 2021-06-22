@@ -122,7 +122,7 @@ for rf in result_files:
     if len(rdf) > 8760:
         mean_wind = []
         for i in range(8760):
-            lst = rdf.loc[i*12:i*12+11]
+            lst = rdf.loc[i*12:i*12+12]
             mean_wind.append(lst.mean()[0])
         df = pd.DataFrame(mean_wind, columns=rdf.columns.tolist())
         df.to_csv('genx/results/'+rf)

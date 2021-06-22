@@ -9,7 +9,7 @@ from shapely.geometry import Point, Polygon
 SOLAR = "/nrel/nsrdb/india/nsrdb_india_2000.h5"
 WIND = "/nrel/wtk/india/wtk_india_2014.h5"
 proj_wgs84 = pyproj.Proj('+proj=longlat +datum=WGS84')
-points = pd.read_excel('query/ceew.xlsx')
+points = pd.read_excel('query/Locations.xlsx')
 
 with Resource(WIND, hsds=True) as file:
     wind = file.meta
@@ -55,6 +55,16 @@ wind_considered.to_csv('wind_points_full.csv', index=False)
 
 solar_considered = solar_considered.reset_index()
 solar_considered = solar_considered.drop_duplicates('gid')
+
+# optional
+solar_considered['tilt'] = solar_considered.latitude.round()
+unique_tilt = solar_considered.tilt.unique().tolist()
+for tilt in unique_tilt:
+    solar_tilt = solar_considered[solar_considered.tilt == tilt]
+    print(len(solar_tilt))
+    solar_tilt.to_csv('solar_points'+str(int(tilt))+'.csv', index=False)
+
+
 wind_considered = wind_considered.drop_duplicates('gid')
 wind_considered = wind_considered.sample(7000)
 

@@ -8072,3 +8072,786 @@ DEBUG - 2020-10-11 20:02:03,319 [project_points.py:90] : PointsControl passing s
 DEBUG - 2020-10-11 20:02:08,790 [project_points.py:90] : PointsControl passing site project points with indices 97 to 98 on iteration #97 
 DEBUG - 2020-10-11 20:02:18,571 [project_points.py:90] : PointsControl passing site project points with indices 98 to 99 on iteration #98 
 DEBUG - 2020-10-11 20:02:28,273 [project_points.py:90] : PointsControl passing site project points with indices 99 to 100 on iteration #99 
+INFO - 2021-04-26 10:39:27,015 [project_points.py:845] : Converting latitude longitude coordinates into nearest ProjectPoints
+DEBUG - 2021-04-26 10:39:27,024 [project_points.py:847] : - (lat, lon) pairs:
+[[24.65 74.65]
+ [24.75 74.65]
+ [24.45 74.75]
+ [24.55 74.75]
+ [24.65 74.75]
+ [24.75 74.75]
+ [24.85 74.75]
+ [24.95 74.75]
+ [24.35 74.85]
+ [24.45 74.85]
+ [24.55 74.85]
+ [24.65 74.85]
+ [24.75 74.85]
+ [24.85 74.85]
+ [24.95 74.85]
+ [25.05 74.85]
+ [24.35 74.95]
+ [24.45 74.95]
+ [24.55 74.95]
+ [24.65 74.95]
+ [24.75 74.95]
+ [24.85 74.95]
+ [24.95 74.95]
+ [25.05 74.95]
+ [24.25 75.05]
+ [24.35 75.05]
+ [24.45 75.05]
+ [24.55 75.05]
+ [24.65 75.05]
+ [24.75 75.05]
+ [24.85 75.05]
+ [24.95 75.05]
+ [25.05 75.05]
+ [24.25 75.15]
+ [24.35 75.15]
+ [24.45 75.15]
+ [24.55 75.15]
+ [24.65 75.15]
+ [24.75 75.15]
+ [24.85 75.15]
+ [24.95 75.15]
+ [25.05 75.15]
+ [24.35 75.25]
+ [24.45 75.25]
+ [24.55 75.25]
+ [24.65 75.25]
+ [24.75 75.25]
+ [24.85 75.25]
+ [24.95 75.25]
+ [25.05 75.25]
+ [24.35 75.35]
+ [24.45 75.35]
+ [24.55 75.35]
+ [24.65 75.35]
+ [24.75 75.35]
+ [24.85 75.35]
+ [24.95 75.35]
+ [25.05 75.35]
+ [24.35 75.45]
+ [24.45 75.45]
+ [24.55 75.45]
+ [24.65 75.45]
+ [24.75 75.45]
+ [24.85 75.45]
+ [24.95 75.45]
+ [24.45 75.55]
+ [24.55 75.55]
+ [24.65 75.55]
+ [24.75 75.55]
+ [24.85 75.55]
+ [18.55 77.75]
+ [18.65 77.75]
+ [18.35 77.85]
+ [18.45 77.85]
+ [18.55 77.85]
+ [18.65 77.85]
+ [18.75 77.85]
+ [18.85 77.85]
+ [18.25 77.95]
+ [18.35 77.95]
+ [18.45 77.95]
+ [18.55 77.95]
+ [18.65 77.95]
+ [18.75 77.95]
+ [18.85 77.95]
+ [18.95 77.95]
+ [18.25 78.05]
+ [18.35 78.05]
+ [18.45 78.05]
+ [18.55 78.05]
+ [18.65 78.05]
+ [18.75 78.05]
+ [18.85 78.05]
+ [18.95 78.05]
+ [18.25 78.15]
+ [18.35 78.15]
+ [18.45 78.15]
+ [18.55 78.15]
+ [18.65 78.15]
+ [18.75 78.15]
+ [18.85 78.15]
+ [18.95 78.15]
+ [19.05 78.15]
+ [18.25 78.25]
+ [18.35 78.25]
+ [18.45 78.25]
+ [18.55 78.25]
+ [18.65 78.25]
+ [18.75 78.25]
+ [18.85 78.25]
+ [18.95 78.25]
+ [19.05 78.25]
+ [18.25 78.35]
+ [18.35 78.35]
+ [18.45 78.35]
+ [18.55 78.35]
+ [18.65 78.35]
+ [18.75 78.35]
+ [18.85 78.35]
+ [18.95 78.35]
+ [18.25 78.45]
+ [18.35 78.45]
+ [18.45 78.45]
+ [18.55 78.45]
+ [18.65 78.45]
+ [18.75 78.45]
+ [18.85 78.45]
+ [18.95 78.45]
+ [18.35 78.55]
+ [18.45 78.55]
+ [18.55 78.55]
+ [18.65 78.55]
+ [18.75 78.55]
+ [18.85 78.55]
+ [18.45 78.65]
+ [18.55 78.65]
+ [18.65 78.65]
+ [18.75 78.65]]
+DEBUG - 2021-04-26 10:39:28,805 [project_points.py:866] : - Resource gids:
+[25276, 25277, 25604, 25605, 25606, 25607, 25608, 25609, 25933, 25934, 25935, 25936, 25937, 25938, 25939, 25940, 26263, 26264, 26265, 26266, 26267, 26268, 26269, 26270, 26592, 26593, 26594, 26595, 26596, 26597, 26598, 26599, 26600, 26922, 26923, 26924, 26925, 26926, 26927, 26928, 26929, 26930, 27253, 27254, 27255, 27256, 27257, 27258, 27259, 27260, 27583, 27584, 27585, 27586, 27587, 27588, 27589, 27590, 27913, 27914, 27915, 27916, 27917, 27918, 27919, 28244, 28245, 28246, 28247, 28248, 35445, 35446, 35773, 35774, 35775, 35776, 35777, 35778, 36102, 36103, 36104, 36105, 36106, 36107, 36108, 36109, 36432, 36433, 36434, 36435, 36436, 36437, 36438, 36439, 36762, 36763, 36764, 36765, 36766, 36767, 36768, 36769, 36770, 37092, 37093, 37094, 37095, 37096, 37097, 37098, 37099, 37100, 37422, 37423, 37424, 37425, 37426, 37427, 37428, 37429, 37752, 37753, 37754, 37755, 37756, 37757, 37758, 37759, 38083, 38084, 38085, 38086, 38087, 38088, 38414, 38415, 38416, 38417]
+INFO - 2021-04-26 10:39:59,351 [project_points.py:845] : Converting latitude longitude coordinates into nearest ProjectPoints
+DEBUG - 2021-04-26 10:39:59,356 [project_points.py:847] : - (lat, lon) pairs:
+[[24.65 74.65]
+ [24.75 74.65]
+ [24.45 74.75]
+ [24.55 74.75]
+ [24.65 74.75]
+ [24.75 74.75]
+ [24.85 74.75]
+ [24.95 74.75]
+ [24.35 74.85]
+ [24.45 74.85]
+ [24.55 74.85]
+ [24.65 74.85]
+ [24.75 74.85]
+ [24.85 74.85]
+ [24.95 74.85]
+ [25.05 74.85]
+ [24.35 74.95]
+ [24.45 74.95]
+ [24.55 74.95]
+ [24.65 74.95]
+ [24.75 74.95]
+ [24.85 74.95]
+ [24.95 74.95]
+ [25.05 74.95]
+ [24.25 75.05]
+ [24.35 75.05]
+ [24.45 75.05]
+ [24.55 75.05]
+ [24.65 75.05]
+ [24.75 75.05]
+ [24.85 75.05]
+ [24.95 75.05]
+ [25.05 75.05]
+ [24.25 75.15]
+ [24.35 75.15]
+ [24.45 75.15]
+ [24.55 75.15]
+ [24.65 75.15]
+ [24.75 75.15]
+ [24.85 75.15]
+ [24.95 75.15]
+ [25.05 75.15]
+ [24.35 75.25]
+ [24.45 75.25]
+ [24.55 75.25]
+ [24.65 75.25]
+ [24.75 75.25]
+ [24.85 75.25]
+ [24.95 75.25]
+ [25.05 75.25]
+ [24.35 75.35]
+ [24.45 75.35]
+ [24.55 75.35]
+ [24.65 75.35]
+ [24.75 75.35]
+ [24.85 75.35]
+ [24.95 75.35]
+ [25.05 75.35]
+ [24.35 75.45]
+ [24.45 75.45]
+ [24.55 75.45]
+ [24.65 75.45]
+ [24.75 75.45]
+ [24.85 75.45]
+ [24.95 75.45]
+ [24.45 75.55]
+ [24.55 75.55]
+ [24.65 75.55]
+ [24.75 75.55]
+ [24.85 75.55]
+ [18.55 77.75]
+ [18.65 77.75]
+ [18.35 77.85]
+ [18.45 77.85]
+ [18.55 77.85]
+ [18.65 77.85]
+ [18.75 77.85]
+ [18.85 77.85]
+ [18.25 77.95]
+ [18.35 77.95]
+ [18.45 77.95]
+ [18.55 77.95]
+ [18.65 77.95]
+ [18.75 77.95]
+ [18.85 77.95]
+ [18.95 77.95]
+ [18.25 78.05]
+ [18.35 78.05]
+ [18.45 78.05]
+ [18.55 78.05]
+ [18.65 78.05]
+ [18.75 78.05]
+ [18.85 78.05]
+ [18.95 78.05]
+ [18.25 78.15]
+ [18.35 78.15]
+ [18.45 78.15]
+ [18.55 78.15]
+ [18.65 78.15]
+ [18.75 78.15]
+ [18.85 78.15]
+ [18.95 78.15]
+ [19.05 78.15]
+ [18.25 78.25]
+ [18.35 78.25]
+ [18.45 78.25]
+ [18.55 78.25]
+ [18.65 78.25]
+ [18.75 78.25]
+ [18.85 78.25]
+ [18.95 78.25]
+ [19.05 78.25]
+ [18.25 78.35]
+ [18.35 78.35]
+ [18.45 78.35]
+ [18.55 78.35]
+ [18.65 78.35]
+ [18.75 78.35]
+ [18.85 78.35]
+ [18.95 78.35]
+ [18.25 78.45]
+ [18.35 78.45]
+ [18.45 78.45]
+ [18.55 78.45]
+ [18.65 78.45]
+ [18.75 78.45]
+ [18.85 78.45]
+ [18.95 78.45]
+ [18.35 78.55]
+ [18.45 78.55]
+ [18.55 78.55]
+ [18.65 78.55]
+ [18.75 78.55]
+ [18.85 78.55]
+ [18.45 78.65]
+ [18.55 78.65]
+ [18.65 78.65]
+ [18.75 78.65]]
+DEBUG - 2021-04-26 10:39:59,675 [project_points.py:866] : - Resource gids:
+[25276, 25277, 25604, 25605, 25606, 25607, 25608, 25609, 25933, 25934, 25935, 25936, 25937, 25938, 25939, 25940, 26263, 26264, 26265, 26266, 26267, 26268, 26269, 26270, 26592, 26593, 26594, 26595, 26596, 26597, 26598, 26599, 26600, 26922, 26923, 26924, 26925, 26926, 26927, 26928, 26929, 26930, 27253, 27254, 27255, 27256, 27257, 27258, 27259, 27260, 27583, 27584, 27585, 27586, 27587, 27588, 27589, 27590, 27913, 27914, 27915, 27916, 27917, 27918, 27919, 28244, 28245, 28246, 28247, 28248, 35445, 35446, 35773, 35774, 35775, 35776, 35777, 35778, 36102, 36103, 36104, 36105, 36106, 36107, 36108, 36109, 36432, 36433, 36434, 36435, 36436, 36437, 36438, 36439, 36762, 36763, 36764, 36765, 36766, 36767, 36768, 36769, 36770, 37092, 37093, 37094, 37095, 37096, 37097, 37098, 37099, 37100, 37422, 37423, 37424, 37425, 37426, 37427, 37428, 37429, 37752, 37753, 37754, 37755, 37756, 37757, 37758, 37759, 38083, 38084, 38085, 38086, 38087, 38088, 38414, 38415, 38416, 38417]
+DEBUG - 2021-04-26 10:39:59,694 [generation.py:982] : Sites per worker being set to 100 for Gen/Econ PointsControl.
+INFO - 2021-04-26 10:40:02,906 [generation.py:629] : Output results from a single site are calculated to use 0.0 KB of memory.
+INFO - 2021-04-26 10:40:02,907 [generation.py:598] : Generation limited to storing 388289 sites in memory (17.0 GB total hardware, 6.8 GB available with 40.0% utilization).
+INFO - 2021-04-26 10:40:02,908 [generation.py:537] : Initializing in-memory outputs for 138 sites with gids 25276 through 38417 inclusive (site list index 0 through 137)
+INFO - 2021-04-26 10:40:02,918 [generation.py:1543] : Running reV generation for: PointsControl for sites 25276 through 38417
+DEBUG - 2021-04-26 10:40:02,919 [generation.py:1545] : The following project points were specified: "PointsControl for sites 25276 through 38417"
+DEBUG - 2021-04-26 10:40:02,920 [generation.py:1547] : The following SAM configs are available to this run:
+'json_files/sam_config_solar.json'
+DEBUG - 2021-04-26 10:40:02,921 [generation.py:1549] : The SAM output variables have been requested:
+('cf_mean', 'cf_profile')
+DEBUG - 2021-04-26 10:40:02,921 [generation.py:1554] : Running serial generation for: PointsControl for sites 25276 through 38417
+DEBUG - 2021-04-26 10:40:02,922 [project_points.py:50] : PointsControl iterator initializing with sites 25276 through 38417
+DEBUG - 2021-04-26 10:40:02,986 [project_points.py:68] : PointsControl stopped iteration at attempted index of 138. Length of iterator is: 138
+DEBUG - 2021-04-26 10:40:02,987 [project_points.py:90] : PointsControl passing site project points with indices 0 to 1 on iteration #0 
+DEBUG - 2021-04-26 10:40:15,002 [project_points.py:90] : PointsControl passing site project points with indices 1 to 2 on iteration #1 
+DEBUG - 2021-04-26 10:40:18,814 [project_points.py:90] : PointsControl passing site project points with indices 2 to 3 on iteration #2 
+DEBUG - 2021-04-26 10:40:28,207 [project_points.py:90] : PointsControl passing site project points with indices 3 to 4 on iteration #3 
+DEBUG - 2021-04-26 10:40:31,928 [project_points.py:90] : PointsControl passing site project points with indices 4 to 5 on iteration #4 
+DEBUG - 2021-04-26 10:40:34,913 [project_points.py:90] : PointsControl passing site project points with indices 5 to 6 on iteration #5 
+DEBUG - 2021-04-26 10:40:37,376 [project_points.py:90] : PointsControl passing site project points with indices 6 to 7 on iteration #6 
+DEBUG - 2021-04-26 10:40:41,058 [project_points.py:90] : PointsControl passing site project points with indices 7 to 8 on iteration #7 
+DEBUG - 2021-04-26 10:40:44,744 [project_points.py:90] : PointsControl passing site project points with indices 8 to 9 on iteration #8 
+DEBUG - 2021-04-26 10:40:47,707 [project_points.py:90] : PointsControl passing site project points with indices 9 to 10 on iteration #9 
+DEBUG - 2021-04-26 10:40:49,960 [project_points.py:90] : PointsControl passing site project points with indices 10 to 11 on iteration #10 
+DEBUG - 2021-04-26 10:40:52,911 [project_points.py:90] : PointsControl passing site project points with indices 11 to 12 on iteration #11 
+DEBUG - 2021-04-26 10:40:55,098 [project_points.py:90] : PointsControl passing site project points with indices 12 to 13 on iteration #12 
+DEBUG - 2021-04-26 10:40:57,825 [project_points.py:90] : PointsControl passing site project points with indices 13 to 14 on iteration #13 
+DEBUG - 2021-04-26 10:41:00,891 [project_points.py:90] : PointsControl passing site project points with indices 14 to 15 on iteration #14 
+DEBUG - 2021-04-26 10:41:03,755 [project_points.py:90] : PointsControl passing site project points with indices 15 to 16 on iteration #15 
+DEBUG - 2021-04-26 10:41:06,242 [project_points.py:90] : PointsControl passing site project points with indices 16 to 17 on iteration #16 
+DEBUG - 2021-04-26 10:41:10,958 [project_points.py:90] : PointsControl passing site project points with indices 17 to 18 on iteration #17 
+DEBUG - 2021-04-26 10:41:13,377 [project_points.py:90] : PointsControl passing site project points with indices 18 to 19 on iteration #18 
+DEBUG - 2021-04-26 10:41:16,186 [project_points.py:90] : PointsControl passing site project points with indices 19 to 20 on iteration #19 
+DEBUG - 2021-04-26 10:41:19,115 [project_points.py:90] : PointsControl passing site project points with indices 20 to 21 on iteration #20 
+DEBUG - 2021-04-26 10:41:22,198 [project_points.py:90] : PointsControl passing site project points with indices 21 to 22 on iteration #21 
+DEBUG - 2021-04-26 10:41:24,551 [project_points.py:90] : PointsControl passing site project points with indices 22 to 23 on iteration #22 
+DEBUG - 2021-04-26 10:41:27,741 [project_points.py:90] : PointsControl passing site project points with indices 23 to 24 on iteration #23 
+DEBUG - 2021-04-26 10:41:30,196 [project_points.py:90] : PointsControl passing site project points with indices 24 to 25 on iteration #24 
+DEBUG - 2021-04-26 10:41:32,922 [project_points.py:90] : PointsControl passing site project points with indices 25 to 26 on iteration #25 
+DEBUG - 2021-04-26 10:41:35,202 [project_points.py:90] : PointsControl passing site project points with indices 26 to 27 on iteration #26 
+DEBUG - 2021-04-26 10:41:37,270 [project_points.py:90] : PointsControl passing site project points with indices 27 to 28 on iteration #27 
+DEBUG - 2021-04-26 10:41:40,369 [project_points.py:90] : PointsControl passing site project points with indices 28 to 29 on iteration #28 
+DEBUG - 2021-04-26 10:41:42,791 [project_points.py:90] : PointsControl passing site project points with indices 29 to 30 on iteration #29 
+DEBUG - 2021-04-26 10:41:45,123 [project_points.py:90] : PointsControl passing site project points with indices 30 to 31 on iteration #30 
+DEBUG - 2021-04-26 10:41:47,836 [project_points.py:90] : PointsControl passing site project points with indices 31 to 32 on iteration #31 
+DEBUG - 2021-04-26 10:41:50,109 [project_points.py:90] : PointsControl passing site project points with indices 32 to 33 on iteration #32 
+DEBUG - 2021-04-26 10:41:52,929 [project_points.py:90] : PointsControl passing site project points with indices 33 to 34 on iteration #33 
+DEBUG - 2021-04-26 10:41:56,642 [project_points.py:90] : PointsControl passing site project points with indices 34 to 35 on iteration #34 
+DEBUG - 2021-04-26 10:41:58,869 [project_points.py:90] : PointsControl passing site project points with indices 35 to 36 on iteration #35 
+DEBUG - 2021-04-26 10:42:01,417 [project_points.py:90] : PointsControl passing site project points with indices 36 to 37 on iteration #36 
+DEBUG - 2021-04-26 10:42:04,060 [project_points.py:90] : PointsControl passing site project points with indices 37 to 38 on iteration #37 
+DEBUG - 2021-04-26 10:42:06,191 [project_points.py:90] : PointsControl passing site project points with indices 38 to 39 on iteration #38 
+DEBUG - 2021-04-26 10:42:08,292 [project_points.py:90] : PointsControl passing site project points with indices 39 to 40 on iteration #39 
+DEBUG - 2021-04-26 10:42:10,825 [project_points.py:90] : PointsControl passing site project points with indices 40 to 41 on iteration #40 
+DEBUG - 2021-04-26 10:42:12,955 [project_points.py:90] : PointsControl passing site project points with indices 41 to 42 on iteration #41 
+DEBUG - 2021-04-26 10:42:15,411 [project_points.py:90] : PointsControl passing site project points with indices 42 to 43 on iteration #42 
+DEBUG - 2021-04-26 10:42:17,874 [project_points.py:90] : PointsControl passing site project points with indices 43 to 44 on iteration #43 
+INFO - 2021-04-26 10:42:18,314 [project_points.py:845] : Converting latitude longitude coordinates into nearest ProjectPoints
+DEBUG - 2021-04-26 10:42:18,317 [project_points.py:847] : - (lat, lon) pairs:
+[[24.65 74.65]
+ [24.75 74.65]
+ [24.45 74.75]
+ [24.55 74.75]
+ [24.65 74.75]
+ [24.75 74.75]
+ [24.85 74.75]
+ [24.95 74.75]
+ [24.35 74.85]
+ [24.45 74.85]
+ [24.55 74.85]
+ [24.65 74.85]
+ [24.75 74.85]
+ [24.85 74.85]
+ [24.95 74.85]
+ [25.05 74.85]
+ [24.35 74.95]
+ [24.45 74.95]
+ [24.55 74.95]
+ [24.65 74.95]
+ [24.75 74.95]
+ [24.85 74.95]
+ [24.95 74.95]
+ [25.05 74.95]
+ [24.25 75.05]
+ [24.35 75.05]
+ [24.45 75.05]
+ [24.55 75.05]
+ [24.65 75.05]
+ [24.75 75.05]
+ [24.85 75.05]
+ [24.95 75.05]
+ [25.05 75.05]
+ [24.25 75.15]
+ [24.35 75.15]
+ [24.45 75.15]
+ [24.55 75.15]
+ [24.65 75.15]
+ [24.75 75.15]
+ [24.85 75.15]
+ [24.95 75.15]
+ [25.05 75.15]
+ [24.35 75.25]
+ [24.45 75.25]
+ [24.55 75.25]
+ [24.65 75.25]
+ [24.75 75.25]
+ [24.85 75.25]
+ [24.95 75.25]
+ [25.05 75.25]
+ [24.35 75.35]
+ [24.45 75.35]
+ [24.55 75.35]
+ [24.65 75.35]
+ [24.75 75.35]
+ [24.85 75.35]
+ [24.95 75.35]
+ [25.05 75.35]
+ [24.35 75.45]
+ [24.45 75.45]
+ [24.55 75.45]
+ [24.65 75.45]
+ [24.75 75.45]
+ [24.85 75.45]
+ [24.95 75.45]
+ [24.45 75.55]
+ [24.55 75.55]
+ [24.65 75.55]
+ [24.75 75.55]
+ [24.85 75.55]
+ [18.55 77.75]
+ [18.65 77.75]
+ [18.35 77.85]
+ [18.45 77.85]
+ [18.55 77.85]
+ [18.65 77.85]
+ [18.75 77.85]
+ [18.85 77.85]
+ [18.25 77.95]
+ [18.35 77.95]
+ [18.45 77.95]
+ [18.55 77.95]
+ [18.65 77.95]
+ [18.75 77.95]
+ [18.85 77.95]
+ [18.95 77.95]
+ [18.25 78.05]
+ [18.35 78.05]
+ [18.45 78.05]
+ [18.55 78.05]
+ [18.65 78.05]
+ [18.75 78.05]
+ [18.85 78.05]
+ [18.95 78.05]
+ [18.25 78.15]
+ [18.35 78.15]
+ [18.45 78.15]
+ [18.55 78.15]
+ [18.65 78.15]
+ [18.75 78.15]
+ [18.85 78.15]
+ [18.95 78.15]
+ [19.05 78.15]
+ [18.25 78.25]
+ [18.35 78.25]
+ [18.45 78.25]
+ [18.55 78.25]
+ [18.65 78.25]
+ [18.75 78.25]
+ [18.85 78.25]
+ [18.95 78.25]
+ [19.05 78.25]
+ [18.25 78.35]
+ [18.35 78.35]
+ [18.45 78.35]
+ [18.55 78.35]
+ [18.65 78.35]
+ [18.75 78.35]
+ [18.85 78.35]
+ [18.95 78.35]
+ [18.25 78.45]
+ [18.35 78.45]
+ [18.45 78.45]
+ [18.55 78.45]
+ [18.65 78.45]
+ [18.75 78.45]
+ [18.85 78.45]
+ [18.95 78.45]
+ [18.35 78.55]
+ [18.45 78.55]
+ [18.55 78.55]
+ [18.65 78.55]
+ [18.75 78.55]
+ [18.85 78.55]
+ [18.45 78.65]
+ [18.55 78.65]
+ [18.65 78.65]
+ [18.75 78.65]]
+DEBUG - 2021-04-26 10:42:19,216 [project_points.py:866] : - Resource gids:
+[25276, 25277, 25604, 25605, 25606, 25607, 25608, 25609, 25933, 25934, 25935, 25936, 25937, 25938, 25939, 25940, 26263, 26264, 26265, 26266, 26267, 26268, 26269, 26270, 26592, 26593, 26594, 26595, 26596, 26597, 26598, 26599, 26600, 26922, 26923, 26924, 26925, 26926, 26927, 26928, 26929, 26930, 27253, 27254, 27255, 27256, 27257, 27258, 27259, 27260, 27583, 27584, 27585, 27586, 27587, 27588, 27589, 27590, 27913, 27914, 27915, 27916, 27917, 27918, 27919, 28244, 28245, 28246, 28247, 28248, 35445, 35446, 35773, 35774, 35775, 35776, 35777, 35778, 36102, 36103, 36104, 36105, 36106, 36107, 36108, 36109, 36432, 36433, 36434, 36435, 36436, 36437, 36438, 36439, 36762, 36763, 36764, 36765, 36766, 36767, 36768, 36769, 36770, 37092, 37093, 37094, 37095, 37096, 37097, 37098, 37099, 37100, 37422, 37423, 37424, 37425, 37426, 37427, 37428, 37429, 37752, 37753, 37754, 37755, 37756, 37757, 37758, 37759, 38083, 38084, 38085, 38086, 38087, 38088, 38414, 38415, 38416, 38417]
+DEBUG - 2021-04-26 10:42:19,225 [generation.py:982] : Sites per worker being set to 100 for Gen/Econ PointsControl.
+DEBUG - 2021-04-26 10:42:20,365 [project_points.py:90] : PointsControl passing site project points with indices 44 to 45 on iteration #44 
+INFO - 2021-04-26 10:42:20,635 [generation.py:629] : Output results from a single site are calculated to use 0.0 KB of memory.
+INFO - 2021-04-26 10:42:20,636 [generation.py:598] : Generation limited to storing 388289 sites in memory (17.0 GB total hardware, 6.8 GB available with 40.0% utilization).
+INFO - 2021-04-26 10:42:20,638 [generation.py:537] : Initializing in-memory outputs for 138 sites with gids 25276 through 38417 inclusive (site list index 0 through 137)
+INFO - 2021-04-26 10:42:20,646 [generation.py:1543] : Running reV generation for: PointsControl for sites 25276 through 38417
+DEBUG - 2021-04-26 10:42:20,647 [generation.py:1545] : The following project points were specified: "PointsControl for sites 25276 through 38417"
+DEBUG - 2021-04-26 10:42:20,647 [generation.py:1547] : The following SAM configs are available to this run:
+'json_files/sam_config_solar1.json'
+DEBUG - 2021-04-26 10:42:20,648 [generation.py:1549] : The SAM output variables have been requested:
+('cf_mean', 'cf_profile')
+DEBUG - 2021-04-26 10:42:20,649 [generation.py:1554] : Running serial generation for: PointsControl for sites 25276 through 38417
+DEBUG - 2021-04-26 10:42:20,649 [project_points.py:50] : PointsControl iterator initializing with sites 25276 through 38417
+DEBUG - 2021-04-26 10:42:20,704 [project_points.py:68] : PointsControl stopped iteration at attempted index of 138. Length of iterator is: 138
+DEBUG - 2021-04-26 10:42:20,705 [project_points.py:90] : PointsControl passing site project points with indices 0 to 1 on iteration #0 
+DEBUG - 2021-04-26 10:42:22,857 [project_points.py:90] : PointsControl passing site project points with indices 45 to 46 on iteration #45 
+DEBUG - 2021-04-26 10:42:23,029 [project_points.py:90] : PointsControl passing site project points with indices 1 to 2 on iteration #1 
+DEBUG - 2021-04-26 10:42:25,405 [project_points.py:90] : PointsControl passing site project points with indices 2 to 3 on iteration #2 
+DEBUG - 2021-04-26 10:42:25,801 [project_points.py:90] : PointsControl passing site project points with indices 46 to 47 on iteration #46 
+DEBUG - 2021-04-26 10:42:28,024 [project_points.py:90] : PointsControl passing site project points with indices 3 to 4 on iteration #3 
+DEBUG - 2021-04-26 10:42:28,319 [project_points.py:90] : PointsControl passing site project points with indices 47 to 48 on iteration #47 
+DEBUG - 2021-04-26 10:42:30,308 [project_points.py:90] : PointsControl passing site project points with indices 4 to 5 on iteration #4 
+DEBUG - 2021-04-26 10:42:30,785 [project_points.py:90] : PointsControl passing site project points with indices 48 to 49 on iteration #48 
+DEBUG - 2021-04-26 10:42:32,984 [project_points.py:90] : PointsControl passing site project points with indices 5 to 6 on iteration #5 
+DEBUG - 2021-04-26 10:42:33,297 [project_points.py:90] : PointsControl passing site project points with indices 49 to 50 on iteration #49 
+DEBUG - 2021-04-26 10:42:35,205 [project_points.py:90] : PointsControl passing site project points with indices 6 to 7 on iteration #6 
+DEBUG - 2021-04-26 10:42:35,424 [project_points.py:90] : PointsControl passing site project points with indices 50 to 51 on iteration #50 
+DEBUG - 2021-04-26 10:42:37,549 [project_points.py:90] : PointsControl passing site project points with indices 7 to 8 on iteration #7 
+DEBUG - 2021-04-26 10:42:38,684 [project_points.py:90] : PointsControl passing site project points with indices 51 to 52 on iteration #51 
+DEBUG - 2021-04-26 10:42:39,734 [project_points.py:90] : PointsControl passing site project points with indices 8 to 9 on iteration #8 
+DEBUG - 2021-04-26 10:42:40,756 [project_points.py:90] : PointsControl passing site project points with indices 52 to 53 on iteration #52 
+INFO - 2021-04-26 10:42:40,870 [project_points.py:845] : Converting latitude longitude coordinates into nearest ProjectPoints
+DEBUG - 2021-04-26 10:42:40,878 [project_points.py:847] : - (lat, lon) pairs:
+[[24.65 74.65]
+ [24.75 74.65]
+ [24.45 74.75]
+ [24.55 74.75]
+ [24.65 74.75]
+ [24.75 74.75]
+ [24.85 74.75]
+ [24.95 74.75]
+ [24.35 74.85]
+ [24.45 74.85]
+ [24.55 74.85]
+ [24.65 74.85]
+ [24.75 74.85]
+ [24.85 74.85]
+ [24.95 74.85]
+ [25.05 74.85]
+ [24.35 74.95]
+ [24.45 74.95]
+ [24.55 74.95]
+ [24.65 74.95]
+ [24.75 74.95]
+ [24.85 74.95]
+ [24.95 74.95]
+ [25.05 74.95]
+ [24.25 75.05]
+ [24.35 75.05]
+ [24.45 75.05]
+ [24.55 75.05]
+ [24.65 75.05]
+ [24.75 75.05]
+ [24.85 75.05]
+ [24.95 75.05]
+ [25.05 75.05]
+ [24.25 75.15]
+ [24.35 75.15]
+ [24.45 75.15]
+ [24.55 75.15]
+ [24.65 75.15]
+ [24.75 75.15]
+ [24.85 75.15]
+ [24.95 75.15]
+ [25.05 75.15]
+ [24.35 75.25]
+ [24.45 75.25]
+ [24.55 75.25]
+ [24.65 75.25]
+ [24.75 75.25]
+ [24.85 75.25]
+ [24.95 75.25]
+ [25.05 75.25]
+ [24.35 75.35]
+ [24.45 75.35]
+ [24.55 75.35]
+ [24.65 75.35]
+ [24.75 75.35]
+ [24.85 75.35]
+ [24.95 75.35]
+ [25.05 75.35]
+ [24.35 75.45]
+ [24.45 75.45]
+ [24.55 75.45]
+ [24.65 75.45]
+ [24.75 75.45]
+ [24.85 75.45]
+ [24.95 75.45]
+ [24.45 75.55]
+ [24.55 75.55]
+ [24.65 75.55]
+ [24.75 75.55]
+ [24.85 75.55]
+ [18.55 77.75]
+ [18.65 77.75]
+ [18.35 77.85]
+ [18.45 77.85]
+ [18.55 77.85]
+ [18.65 77.85]
+ [18.75 77.85]
+ [18.85 77.85]
+ [18.25 77.95]
+ [18.35 77.95]
+ [18.45 77.95]
+ [18.55 77.95]
+ [18.65 77.95]
+ [18.75 77.95]
+ [18.85 77.95]
+ [18.95 77.95]
+ [18.25 78.05]
+ [18.35 78.05]
+ [18.45 78.05]
+ [18.55 78.05]
+ [18.65 78.05]
+ [18.75 78.05]
+ [18.85 78.05]
+ [18.95 78.05]
+ [18.25 78.15]
+ [18.35 78.15]
+ [18.45 78.15]
+ [18.55 78.15]
+ [18.65 78.15]
+ [18.75 78.15]
+ [18.85 78.15]
+ [18.95 78.15]
+ [19.05 78.15]
+ [18.25 78.25]
+ [18.35 78.25]
+ [18.45 78.25]
+ [18.55 78.25]
+ [18.65 78.25]
+ [18.75 78.25]
+ [18.85 78.25]
+ [18.95 78.25]
+ [19.05 78.25]
+ [18.25 78.35]
+ [18.35 78.35]
+ [18.45 78.35]
+ [18.55 78.35]
+ [18.65 78.35]
+ [18.75 78.35]
+ [18.85 78.35]
+ [18.95 78.35]
+ [18.25 78.45]
+ [18.35 78.45]
+ [18.45 78.45]
+ [18.55 78.45]
+ [18.65 78.45]
+ [18.75 78.45]
+ [18.85 78.45]
+ [18.95 78.45]
+ [18.35 78.55]
+ [18.45 78.55]
+ [18.55 78.55]
+ [18.65 78.55]
+ [18.75 78.55]
+ [18.85 78.55]
+ [18.45 78.65]
+ [18.55 78.65]
+ [18.65 78.65]
+ [18.75 78.65]]
+DEBUG - 2021-04-26 10:42:41,684 [project_points.py:90] : PointsControl passing site project points with indices 9 to 10 on iteration #9 
+DEBUG - 2021-04-26 10:42:41,786 [project_points.py:866] : - Resource gids:
+[25276, 25277, 25604, 25605, 25606, 25607, 25608, 25609, 25933, 25934, 25935, 25936, 25937, 25938, 25939, 25940, 26263, 26264, 26265, 26266, 26267, 26268, 26269, 26270, 26592, 26593, 26594, 26595, 26596, 26597, 26598, 26599, 26600, 26922, 26923, 26924, 26925, 26926, 26927, 26928, 26929, 26930, 27253, 27254, 27255, 27256, 27257, 27258, 27259, 27260, 27583, 27584, 27585, 27586, 27587, 27588, 27589, 27590, 27913, 27914, 27915, 27916, 27917, 27918, 27919, 28244, 28245, 28246, 28247, 28248, 35445, 35446, 35773, 35774, 35775, 35776, 35777, 35778, 36102, 36103, 36104, 36105, 36106, 36107, 36108, 36109, 36432, 36433, 36434, 36435, 36436, 36437, 36438, 36439, 36762, 36763, 36764, 36765, 36766, 36767, 36768, 36769, 36770, 37092, 37093, 37094, 37095, 37096, 37097, 37098, 37099, 37100, 37422, 37423, 37424, 37425, 37426, 37427, 37428, 37429, 37752, 37753, 37754, 37755, 37756, 37757, 37758, 37759, 38083, 38084, 38085, 38086, 38087, 38088, 38414, 38415, 38416, 38417]
+DEBUG - 2021-04-26 10:42:41,792 [generation.py:982] : Sites per worker being set to 100 for Gen/Econ PointsControl.
+INFO - 2021-04-26 10:42:43,144 [generation.py:629] : Output results from a single site are calculated to use 0.0 KB of memory.
+INFO - 2021-04-26 10:42:43,146 [generation.py:598] : Generation limited to storing 388289 sites in memory (17.0 GB total hardware, 6.8 GB available with 40.0% utilization).
+INFO - 2021-04-26 10:42:43,147 [generation.py:537] : Initializing in-memory outputs for 138 sites with gids 25276 through 38417 inclusive (site list index 0 through 137)
+INFO - 2021-04-26 10:42:43,158 [generation.py:1543] : Running reV generation for: PointsControl for sites 25276 through 38417
+DEBUG - 2021-04-26 10:42:43,159 [generation.py:1545] : The following project points were specified: "PointsControl for sites 25276 through 38417"
+DEBUG - 2021-04-26 10:42:43,160 [generation.py:1547] : The following SAM configs are available to this run:
+'json_files/sam_config_solar2.json'
+DEBUG - 2021-04-26 10:42:43,161 [generation.py:1549] : The SAM output variables have been requested:
+('cf_mean', 'cf_profile')
+DEBUG - 2021-04-26 10:42:43,162 [generation.py:1554] : Running serial generation for: PointsControl for sites 25276 through 38417
+DEBUG - 2021-04-26 10:42:43,162 [project_points.py:50] : PointsControl iterator initializing with sites 25276 through 38417
+DEBUG - 2021-04-26 10:42:43,264 [project_points.py:68] : PointsControl stopped iteration at attempted index of 138. Length of iterator is: 138
+DEBUG - 2021-04-26 10:42:43,265 [project_points.py:90] : PointsControl passing site project points with indices 0 to 1 on iteration #0 
+DEBUG - 2021-04-26 10:42:43,310 [project_points.py:90] : PointsControl passing site project points with indices 53 to 54 on iteration #53 
+DEBUG - 2021-04-26 10:42:43,826 [project_points.py:90] : PointsControl passing site project points with indices 10 to 11 on iteration #10 
+DEBUG - 2021-04-26 10:42:45,530 [project_points.py:90] : PointsControl passing site project points with indices 1 to 2 on iteration #1 
+DEBUG - 2021-04-26 10:42:46,449 [project_points.py:90] : PointsControl passing site project points with indices 11 to 12 on iteration #11 
+DEBUG - 2021-04-26 10:42:47,963 [project_points.py:90] : PointsControl passing site project points with indices 2 to 3 on iteration #2 
+DEBUG - 2021-04-26 10:42:48,179 [project_points.py:90] : PointsControl passing site project points with indices 54 to 55 on iteration #54 
+DEBUG - 2021-04-26 10:42:48,800 [project_points.py:90] : PointsControl passing site project points with indices 12 to 13 on iteration #12 
+DEBUG - 2021-04-26 10:42:50,725 [project_points.py:90] : PointsControl passing site project points with indices 55 to 56 on iteration #55 
+DEBUG - 2021-04-26 10:42:50,756 [project_points.py:90] : PointsControl passing site project points with indices 3 to 4 on iteration #3 
+ERROR - 2021-04-26 10:42:50,889 [generation.py:1285] : Worker failed for PC: PointsControl for sites 27588 through 27588
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 229, in check_res_file
+    with h5pyd.Folder(hsds_dir + '/') as f:
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\folders.py", line 215, in __init__
+    raise IOError(rsp.status_code, rsp.reason)
+OSError: [Errno 429] Too Many Requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1282, in run
+    downscale=downscale)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\generation.py", line 311, in reV_run
+    output_request=output_request)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 531, in get_sam_res
+    return SamResourceRetriever.get(*args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 235, in get
+    multi_h5_res, hsds = check_res_file(res_file)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 240, in check_res_file
+    raise FileNotFoundError(msg)
+FileNotFoundError: /nrel/nsrdb/india/nsrdb_india_2000.h5 is not a valid file path, and HSDS cannot be check for a file at this path:[Errno 429] Too Many Requests!
+ERROR - 2021-04-26 10:42:50,905 [generation.py:1565] : reV generation failed!
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 229, in check_res_file
+    with h5pyd.Folder(hsds_dir + '/') as f:
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\folders.py", line 215, in __init__
+    raise IOError(rsp.status_code, rsp.reason)
+OSError: [Errno 429] Too Many Requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1556, in reV_run
+    gen.out = gen.run(pc_sub, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1286, in run
+    raise e
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1282, in run
+    downscale=downscale)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\generation.py", line 311, in reV_run
+    output_request=output_request)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 531, in get_sam_res
+    return SamResourceRetriever.get(*args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 235, in get
+    multi_h5_res, hsds = check_res_file(res_file)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 240, in check_res_file
+    raise FileNotFoundError(msg)
+FileNotFoundError: /nrel/nsrdb/india/nsrdb_india_2000.h5 is not a valid file path, and HSDS cannot be check for a file at this path:[Errno 429] Too Many Requests!
+ERROR - 2021-04-26 10:42:50,914 [generation.py:1285] : Worker failed for PC: PointsControl for sites 25605 through 25605
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 229, in check_res_file
+    with h5pyd.Folder(hsds_dir + '/') as f:
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\folders.py", line 215, in __init__
+    raise IOError(rsp.status_code, rsp.reason)
+OSError: [Errno 429] Too Many Requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1282, in run
+    downscale=downscale)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\generation.py", line 311, in reV_run
+    output_request=output_request)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 531, in get_sam_res
+    return SamResourceRetriever.get(*args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 235, in get
+    multi_h5_res, hsds = check_res_file(res_file)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 240, in check_res_file
+    raise FileNotFoundError(msg)
+FileNotFoundError: /nrel/nsrdb/india/nsrdb_india_2000.h5 is not a valid file path, and HSDS cannot be check for a file at this path:[Errno 429] Too Many Requests!
+ERROR - 2021-04-26 10:42:50,927 [generation.py:1565] : reV generation failed!
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 229, in check_res_file
+    with h5pyd.Folder(hsds_dir + '/') as f:
+  File "C:\Users\marcb\anaconda3\lib\site-packages\h5pyd\_hl\folders.py", line 215, in __init__
+    raise IOError(rsp.status_code, rsp.reason)
+OSError: [Errno 429] Too Many Requests
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1556, in reV_run
+    gen.out = gen.run(pc_sub, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1286, in run
+    raise e
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\generation\generation.py", line 1282, in run
+    downscale=downscale)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\generation.py", line 311, in reV_run
+    output_request=output_request)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 531, in get_sam_res
+    return SamResourceRetriever.get(*args, **kwargs)
+  File "C:\Users\marcb\Documents\Github\rev-india\reV\SAM\SAM.py", line 235, in get
+    multi_h5_res, hsds = check_res_file(res_file)
+  File "C:\Users\marcb\Documents\Github\rev-india\rex\utilities\utilities.py", line 240, in check_res_file
+    raise FileNotFoundError(msg)
+FileNotFoundError: /nrel/nsrdb/india/nsrdb_india_2000.h5 is not a valid file path, and HSDS cannot be check for a file at this path:[Errno 429] Too Many Requests!
+DEBUG - 2021-04-26 10:42:51,057 [project_points.py:90] : PointsControl passing site project points with indices 13 to 14 on iteration #13 
+DEBUG - 2021-04-26 10:42:53,235 [project_points.py:90] : PointsControl passing site project points with indices 14 to 15 on iteration #14 
+DEBUG - 2021-04-26 10:42:55,445 [project_points.py:90] : PointsControl passing site project points with indices 15 to 16 on iteration #15 
+DEBUG - 2021-04-26 10:42:58,282 [project_points.py:90] : PointsControl passing site project points with indices 16 to 17 on iteration #16 
+DEBUG - 2021-04-26 10:43:00,651 [project_points.py:90] : PointsControl passing site project points with indices 17 to 18 on iteration #17 
+DEBUG - 2021-04-26 10:43:03,094 [project_points.py:90] : PointsControl passing site project points with indices 18 to 19 on iteration #18 
+DEBUG - 2021-04-26 10:43:05,686 [project_points.py:90] : PointsControl passing site project points with indices 19 to 20 on iteration #19 
