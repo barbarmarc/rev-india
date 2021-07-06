@@ -1,15 +1,11 @@
 from rex import Resource
-import geopandas as gpd
 import pandas as pd
 import pyproj
-from functools import partial
-from shapely.ops import transform
-from shapely.geometry import Point, Polygon
 
 SOLAR = "/nrel/nsrdb/india/nsrdb_india_2000.h5"
 WIND = "/nrel/wtk/india/wtk_india_2014.h5"
-proj_wgs84 = pyproj.Proj('+proj=longlat +datum=WGS84')
-points = pd.read_excel('query/Locations.xlsx')
+
+points = pd.read_excel('query/Loc_Ind_Wind_Run.xlsx')
 
 with Resource(WIND, hsds=True) as file:
     wind = file.meta
@@ -22,6 +18,16 @@ with Resource(SOLAR, hsds=True) as file:
 
 solar.index.name = "gid"
 solar["config"] = "default"
+
+import pandas as pd
+import geopandas as gpd
+import pyproj
+from functools import partial
+from shapely.ops import transform
+from shapely.geometry import Point, Polygon
+proj_wgs84 = pyproj.Proj('+proj=longlat +datum=WGS84')
+
+wind = pd.read_csv('wind_gid.csv')
 
 geometry = [Point(xy) for xy in zip(wind.longitude, wind.latitude)]
 wind_gdf = gpd.GeoDataFrame(wind, crs="EPSG:4326", geometry=geometry)

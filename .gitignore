@@ -14,3 +14,6 @@ query/*
 conda.recipe/*
 rev-india.zip
 output/*
+wind_gid.csv
+wind_points_full.csv
+wind_points.csv
